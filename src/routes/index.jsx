@@ -4,8 +4,10 @@ import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import SheltersRescues from "views/SheltersRescues/SheltersRescues.jsx";
+import SearchPage from "views/SearchPage/SearchPage.jsx";
 
 var indexRoutes = [
+  { path: "/search", name: "SearchPage", component: SearchPage },
   { path: "/shelters-rescues", name: "SheltersRescues", component: SheltersRescues },
   { path: "/contact-us", name: "ContactUs", component: ContactUs },
   { path: "/landing-page", name: "LandingPage", component: LandingPage },
