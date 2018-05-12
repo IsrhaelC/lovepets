@@ -4,31 +4,35 @@ import classNames from "classnames";
 // material-ui components
 import withStyles from "material-ui/styles/withStyles";
 // @material-ui/icons
-import Camera from "@material-ui/icons/Camera";
-import Palette from "@material-ui/icons/Palette";
+import Pets from "@material-ui/icons/Pets";
+import Healing from "@material-ui/icons/Healing";
 import Favorite from "@material-ui/icons/Favorite";
 // core components
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
-import IconButton from "components/CustomButtons/IconButton.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
-import profile from "assets/img/faces/christian.jpg";
+import profile from "assets/img/adopters/perfil.jpg";
 
-import studio1 from "assets/img/examples/studio-1.jpg";
-import studio2 from "assets/img/examples/studio-2.jpg";
-import studio3 from "assets/img/examples/studio-3.jpg";
-import studio4 from "assets/img/examples/studio-4.jpg";
-import studio5 from "assets/img/examples/studio-5.jpg";
-import work1 from "assets/img/examples/olu-eletu.jpg";
-import work2 from "assets/img/examples/clem-onojeghuo.jpg";
-import work3 from "assets/img/examples/cynthia-del-rio.jpg";
-import work4 from "assets/img/examples/mariya-georgieva.jpg";
-import work5 from "assets/img/examples/clem-onojegaw.jpg";
+import paciencia1 from "assets/img/adopters/paciencia-1.jpg";
+import paciencia2 from "assets/img/adopters/paciencia-2.jpg";
+import paciencia3 from "assets/img/adopters/paciencia-3.jpg";
+import paciencia4 from "assets/img/adopters/paciencia-4.jpg";
+import paciencia5 from "assets/img/adopters/paciencia-5.jpg";
+import carinho1 from "assets/img/adopters/carinho-1.jpg";
+import carinho2 from "assets/img/adopters/carinho-2.jpg";
+import carinho3 from "assets/img/adopters/carinho-3.jpg";
+import carinho4 from "assets/img/adopters/carinho-4.jpg";
+import carinho5 from "assets/img/adopters/carinho-5.jpg";
+import cuidado1 from "assets/img/adopters/safe-1.jpg";
+import cuidado2 from "assets/img/adopters/safe-2.jpg";
+import cuidado3 from "assets/img/adopters/safe-3.jpg";
+import cuidado4 from "assets/img/adopters/safe-4.jpg";
+import cuidado5 from "assets/img/adopters/safe-5.png";
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
@@ -45,7 +49,7 @@ class ProfilePage extends React.Component {
       <div>
         <Header
           color="transparent"
-          brand="Material Kit React"
+          brand="LovePets"
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{
@@ -54,7 +58,7 @@ class ProfilePage extends React.Component {
           }}
           {...rest}
         />
-        <Parallax small filter image={require("assets/img/profile-bg.jpg")} />
+        <Parallax small filter image={require("assets/img/bg-adopters.jpg")} />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>
             <div className={classes.container}>
@@ -65,36 +69,25 @@ class ProfilePage extends React.Component {
                       <img src={profile} alt="..." className={imageClasses} />
                     </div>
                     <div className={classes.name}>
-                      <h3 className={classes.title}>Christian Louboutin</h3>
-                      <h6>DESIGNER</h6>
-                      <IconButton
-                        color="transparent"
-                        className={classes.margin5}
-                      >
-                        <i className={classes.socials + " fab fa-twitter"} />
-                      </IconButton>
-                      <IconButton
-                        color="transparent"
-                        className={classes.margin5}
-                      >
-                        <i className={classes.socials + " fab fa-instagram"} />
-                      </IconButton>
-                      <IconButton
-                        color="transparent"
-                        className={classes.margin5}
-                      >
-                        <i className={classes.socials + " fab fa-facebook"} />
-                      </IconButton>
+                      <h3 className={classes.title}>Adoção responsável de animais</h3>
                     </div>
                   </div>
                 </GridItem>
               </GridContainer>
               <div className={classes.description}>
                 <p>
-                  An artist of considerable range, Chet Faker — the name taken
-                  by Melbourne-raised, Brooklyn-based Nick Murphy — writes,
-                  performs and records all of his own music, giving it a warm,
-                  intimate feel with a solid groove structure.{" "}
+                A adoção é um nobre ato que dá a oportunidade a um 
+                bichinho de poder contar uma família que o ame e o 
+                trate da maneira que ele merece, já que, além de serem 
+                seres especiais, os animais de estimação acabam sendo uma 
+                parte essencial da vida das pessoas.
+                Embora adotar seja algo que traz felicidade 
+                tanto para o animal como para o dono, é uma decisão que 
+                requer muitíssima responsabilidade, já que por se tratar 
+                de um ser vivo, devemos oferecer não somente todos os cuidados 
+                correspondentes, mas também ser um exemplo a ser seguido, sendo 
+                uma pessoa que o trate respeitosa e dignamente. 
+                <strong> É por isso que aqui deixaremos as chaves para uma adoção responsável..</strong>{" "}
                 </p>
               </div>
               <GridContainer justify="center">
@@ -104,105 +97,110 @@ class ProfilePage extends React.Component {
                     color="primary"
                     tabs={[
                       {
-                        tabButton: "Studio",
-                        tabIcon: Camera,
-                        tabContent: (
-                          <GridContainer justify="center">
-                            <GridItem xs={12} sm={12} md={4}>
-                              <img
-                                alt="..."
-                                src={studio1}
-                                className={navImageClasses}
-                              />
-                              <img
-                                alt="..."
-                                src={studio2}
-                                className={navImageClasses}
-                              />
-                            </GridItem>
-                            <GridItem xs={12} sm={12} md={4}>
-                              <img
-                                alt="..."
-                                src={studio5}
-                                className={navImageClasses}
-                              />
-                              <img
-                                alt="..."
-                                src={studio4}
-                                className={navImageClasses}
-                              />
-                            </GridItem>
-                          </GridContainer>
-                        )
-                      },
-                      {
-                        tabButton: "Work",
-                        tabIcon: Palette,
-                        tabContent: (
-                          <GridContainer justify="center">
-                            <GridItem xs={12} sm={12} md={4}>
-                              <img
-                                alt="..."
-                                src={work1}
-                                className={navImageClasses}
-                              />
-                              <img
-                                alt="..."
-                                src={work2}
-                                className={navImageClasses}
-                              />
-                              <img
-                                alt="..."
-                                src={work3}
-                                className={navImageClasses}
-                              />
-                            </GridItem>
-                            <GridItem xs={12} sm={12} md={4}>
-                              <img
-                                alt="..."
-                                src={work4}
-                                className={navImageClasses}
-                              />
-                              <img
-                                alt="..."
-                                src={work5}
-                                className={navImageClasses}
-                              />
-                            </GridItem>
-                          </GridContainer>
-                        )
-                      },
-                      {
-                        tabButton: "Favorite",
+                        tabButton: "Paciência",
                         tabIcon: Favorite,
                         tabContent: (
                           <GridContainer justify="center">
-                            <GridItem xs={12} sm={12} md={4}>
+                            <GridItem xs={12} sm={12} md={6}>
                               <img
                                 alt="..."
-                                src={work4}
+                                src={paciencia1}
                                 className={navImageClasses}
                               />
                               <img
                                 alt="..."
-                                src={studio3}
+                                src={paciencia2}
                                 className={navImageClasses}
                               />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={4}>
                               <img
                                 alt="..."
-                                src={work2}
+                                src={paciencia3}
                                 className={navImageClasses}
                               />
                               <img
                                 alt="..."
-                                src={work1}
+                                src={paciencia4}
                                 className={navImageClasses}
                               />
                               <img
                                 alt="..."
-                                src={studio1}
+                                src={paciencia5}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                        )
+                      },
+                      {
+                        tabButton: "Carinho",
+                        tabIcon: Pets,
+                        tabContent: (
+                          <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={carinho1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={carinho2}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={carinho3}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={carinho4}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={carinho5}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                        )
+                      },
+                      {
+                        tabButton: "Cuidados",
+                        tabIcon: Healing,
+                        tabContent: (
+                          <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={cuidado1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={cuidado2}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={cuidado3}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={cuidado4}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={cuidado5}
                                 className={navImageClasses}
                               />
                             </GridItem>

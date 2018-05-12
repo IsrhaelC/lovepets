@@ -40,7 +40,10 @@ function HeaderLinks({ ...props }) {
           target="_blank"
           className={classes.navLink}
         >
-          <SupervisorAccount className={classes.icons} /> Abrigos e Protetores
+          <SupervisorAccount className={classes.icons} />
+          <Link to="/shelters-rescues" className={classes.navItem}>
+            Abrigos e Protetores
+          </Link>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
@@ -50,17 +53,22 @@ function HeaderLinks({ ...props }) {
           target="_blank"
           className={classes.navLink}
         >
-          <Favorite className={classes.icons} /> Adotantes
+          <Favorite className={classes.icons} />
+          <Link to="/profile-page" className={classes.navItem}>
+            Adotantes
+          </Link>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
         <Button
-          href="https://www.creative-tim.com/product/material-kit-react"
           color="transparent"
           target="_blank"
           className={classes.navLink}
         >
-          <Email className={classes.icons} /> Contate-nos
+          <Email className={classes.icons} />
+          <Link to="/contact-us" className={classes.navItem}>
+            Contate-nos
+          </Link>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
@@ -76,13 +84,9 @@ function HeaderLinks({ ...props }) {
               Abrigos e Protetores
             </Link>,
             // eslint-disable-next-line
-            <a
-              href="http://creativetimofficial.github.io/material-kit-react/#/documentation"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
+            <Link to="/" className={classes.dropdownLink}>
               Adotantes
-            </a>
+            </Link>
           ]}
         />
       </ListItem>
@@ -99,13 +103,9 @@ function HeaderLinks({ ...props }) {
               Abrigos e Protetores
             </Link>,
             // eslint-disable-next-line
-            <a
-              href="http://creativetimofficial.github.io/material-kit-react/#/documentation"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
+            <Link to="/" className={classes.dropdownLink}>
               Adotantes
-            </a>
+            </Link>
           ]}
         />
       </ListItem>
