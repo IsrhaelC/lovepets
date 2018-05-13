@@ -15,6 +15,7 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
 import Search from "./Search/Search.jsx"
+import Result from "./Result/Result.jsx"
 
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
@@ -50,6 +51,7 @@ class LandingPage extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
             <Search />
+            <Result />
           </div>
         </div>
         <Footer />

@@ -52,7 +52,8 @@ const searchStyle = {
     paddingTop: "0rem",
     border: "0",
     borderRadius: "6px",
-    justifyContent: "center !important"
+    justifyContent: "center !important",
+    color: "white"
   },
   socialLine: {
     marginTop: "1rem",

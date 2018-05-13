@@ -48,7 +48,7 @@ class Search extends React.Component {
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={10}>
             <Card className={classes[this.state.cardAnimaton]}>
-                <p className={classes.divider}>Procure pelo seu Pet</p>
+                <p className={classes.divider}><strong>Encontre seu Pet</strong></p>
                 <CardBody className={classes.cardbody}>
                   <form className={classes.form} autoComplete="off">
                     <FormControl className={classes.formControl}>
@@ -122,7 +122,7 @@ class Search extends React.Component {
                   </form>
                 </CardBody>
                 <CardFooter className={classes.cardFooter}>
-                  <Button simple color="primary" size="lg">
+                  <Button color="primary" size="lg">
                     Buscar
                   </Button>
                 </CardFooter>
