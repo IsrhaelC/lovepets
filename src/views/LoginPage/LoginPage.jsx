@@ -5,7 +5,6 @@ import InputAdornment from "material-ui/Input/InputAdornment";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
-import People from "@material-ui/icons/People";
 // core components
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
@@ -18,7 +17,8 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
+import TextField from 'material-ui/TextField';
+import { auth } from '../../firebase';
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
@@ -29,7 +29,9 @@ class LoginPage extends React.Component {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden"
+      cardAnimaton: "cardHidden",
+      email: '',
+      password: ''
     };
   }
   componentDidMount() {
@@ -41,6 +43,23 @@ class LoginPage extends React.Component {
       700
     );
   }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  onSubmit = () => {
+    auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
+    .then(obj => {
+      console.log(this.state.email, obj)
+    }).catch(error => {
+      console.log(this.state.email)
+      console.log(this.state.email, error)
+    })
+  }
+
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -48,7 +67,7 @@ class LoginPage extends React.Component {
         <Header
           absolute
           color="transparent"
-          brand="Material Kit React"
+          brand="LovePets"
           rightLinks={<HeaderLinks />}
           {...rest}
         />
@@ -64,95 +83,42 @@ class LoginPage extends React.Component {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
-                  <form className={classes.form}>
+                  <form className={classes.form} autoComplete="off">
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Login</h4>
                       <div className={classes.socialLine}>
-                        <IconButton
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i
-                            className={classes.socialIcons + " fab fa-twitter"}
-                          />
-                        </IconButton>
-                        <IconButton
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i
-                            className={classes.socialIcons + " fab fa-facebook"}
-                          />
-                        </IconButton>
-                        <IconButton
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i
-                            className={
-                              classes.socialIcons + " fab fa-google-plus-g"
-                            }
-                          />
-                        </IconButton>
-                      </div>
+                      <IconButton target="_blank" color="transparent"
+                        onClick={e => e.preventDefault()}>
+                        <i className={classes.socialIcons + " fab fa-twitter"} />
+                      </IconButton>
+                      <IconButton target="_blank" color="transparent"
+                        onClick={e => e.preventDefault()} >
+                        <i className={classes.socialIcons + " fab fa-facebook"} />
+                      </IconButton>
+                      <IconButton target="_blank" color="transparent"
+                        onClick={e => e.preventDefault()} >
+                        <i className={classes.socialIcons + " fab fa-google"} />
+                      </IconButton>
+                    </div>
                     </CardHeader>
-                    <p className={classes.divider}>Or Be Classical</p>
+                    <p className={classes.divider}>Ou da forma clássica</p>
                     <CardBody>
-                      <CustomInput
-                        labelText="First Name..."
-                        id="first"
-                        formControlProps={{
-                          fullWidth: true
+                      <TextField id="email" label="Email" className={classes.textField} value={this.state.email}
+                        onChange={this.handleChange('email')} margin="normal"
+                        InputProps={{
+                          endAdornment: <InputAdornment><Email /></InputAdornment>
                         }}
-                        inputProps={{
-                          type: "text",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <People className={classes.inputIconsColor}/>
-                            </InputAdornment>
-                          )
+                        />
+                      <TextField id="password" label="Senha" className={classes.textField} value={this.state.password}
+                        onChange={this.handleChange('password')} margin="normal" type="password"
+                        InputProps={{
+                          endAdornment: <InputAdornment><LockOutline /></InputAdornment>
                         }}
-                      />
-                      <CustomInput
-                        labelText="Email..."
-                        id="email"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "email",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Email className={classes.inputIconsColor}/>
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                      <CustomInput
-                        labelText="Password"
-                        id="pass"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "password",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <LockOutline className={classes.inputIconsColor}/>
-                            </InputAdornment>
-                          )
-                        }}
-                      />
+                        />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg">
-                        Get started
+                      <Button simple color="primary" size="lg" onClick={() => this.onSubmit()}>
+                        Entrar
                       </Button>
                     </CardFooter>
                   </form>

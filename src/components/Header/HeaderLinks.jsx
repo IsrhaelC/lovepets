@@ -84,30 +84,23 @@ function HeaderLinks({ ...props }) {
               Abrigos e Protetores
             </Link>,
             // eslint-disable-next-line
-            <Link to="/" className={classes.dropdownLink}>
+            <Link to="/adopters-register" className={classes.dropdownLink}>
               Adotantes
             </Link>
           ]}
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-        <CustomDropdown
-          buttonText="Login"
-          buttonProps={{
-            className: classes.navLink,
-            color: "transparent"
-          }}
-          buttonIcon={Person}
-          dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              Abrigos e Protetores
-            </Link>,
-            // eslint-disable-next-line
-            <Link to="/" className={classes.dropdownLink}>
-              Adotantes
-            </Link>
-          ]}
-        />
+        <Button
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}
+        >
+          <Person className={classes.icons} />
+          <Link to="/login-page" className={classes.navItem}>
+            Login
+          </Link>
+        </Button>
       </ListItem>
     </List>
   );

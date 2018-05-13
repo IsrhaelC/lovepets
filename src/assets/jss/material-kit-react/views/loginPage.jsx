@@ -76,7 +76,10 @@ const signupPageStyle = {
   },
   inputIconsColor: {
     color: "#495057",
-  }
+  },
+  textField: {
+    width: "100%"
+  },
 };
 
 export default signupPageStyle;

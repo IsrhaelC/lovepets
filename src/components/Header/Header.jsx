@@ -76,7 +76,7 @@ class Header extends React.Component {
     });
     const brandComponent = (
       <Button className={classes.title}>
-        <Link to="/landing-page" className={classes.navItem}>
+        <Link to="/" className={classes.navItem}>
           {brand}
         </Link>
       </Button>

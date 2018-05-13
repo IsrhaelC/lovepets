@@ -48,10 +48,35 @@ const registerPage = {
   containerForm: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: "space-around"
+    justifyContent: "space-between"
   },
   textField: {
     width: "100%"
+  },
+  cardHeader: {
+    width: "auto",
+    textAlign: "center",
+    marginLeft: "20px",
+    marginRight: "20px",
+    marginTop: "-40px",
+    padding: "20px 0",
+    marginBottom: "15px",
+  },
+  socialIcons: {
+    maxWidth: "24px",
+    marginTop: "0",
+    width: "100%",
+    transform: "none",
+    left: "0",
+    top: "0",
+    height: "100%",
+    lineHeight: "41px",
+    fontSize: "20px"
+  },
+  divider: {
+    marginTop: "30px",
+    marginBottom: "0px",
+    textAlign: "center"
   }
 
 };
