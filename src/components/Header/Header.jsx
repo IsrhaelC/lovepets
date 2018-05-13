@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -74,8 +75,10 @@ class Header extends React.Component {
       [classes.fixed]: fixed
     });
     const brandComponent = (
-      <Button href="#" className={classes.title}>
-        {brand}
+      <Button className={classes.title}>
+        <Link to="/landing-page" className={classes.navItem}>
+          {brand}
+        </Link>
       </Button>
     );
     return (

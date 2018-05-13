@@ -30,7 +30,7 @@ class WorkSection extends React.Component {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="Your Name"
+                    labelText="Seu Nome"
                     id="name"
                     formControlProps={{
                       fullWidth: true
@@ -39,7 +39,7 @@ class WorkSection extends React.Component {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="Your Email"
+                    labelText="Seu Email"
                     id="email"
                     formControlProps={{
                       fullWidth: true
@@ -47,7 +47,7 @@ class WorkSection extends React.Component {
                   />
                 </GridItem>
                 <CustomInput
-                  labelText="Your Message"
+                  labelText="Sua Mensagem"
                   id="message"
                   formControlProps={{
                     fullWidth: true,
@@ -65,7 +65,7 @@ class WorkSection extends React.Component {
                     md={4}
                     className={classes.textCenter}
                   >
-                    <Button color="primary">Send Message</Button>
+                    <Button color="primary">Enviar Mensagem</Button>
                   </GridItem>
                 </GridContainer>
               </GridContainer>

@@ -80,7 +80,7 @@ function HeaderLinks({ ...props }) {
           }}
           buttonIcon={PersonAdd}
           dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
+            <Link to="/shelters-register" className={classes.dropdownLink}>
               Abrigos e Protetores
             </Link>,
             // eslint-disable-next-line

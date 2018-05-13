@@ -159,6 +159,20 @@ const headerStyle = {
     //   background: "#000",
     //   opacity: ".8"
     // }
+  },
+  navItem: {
+    color: "inherit",
+    position: "relative",
+    fontWeight: "400",
+    fontSize: "18px",
+    borderRadius: "3px",
+    lineHeight: "20px",
+    textDecoration: "none",
+    margin: "0px",
+    display: "inline-flex",
+    "&:hover,&:focus": {
+      color: "inherit",
+    }
   }
 };
 
