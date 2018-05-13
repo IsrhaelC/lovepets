@@ -2,7 +2,7 @@ import React from "react";
 // material-ui components
 import withStyles from "material-ui/styles/withStyles";
 import classNames from "classnames";
-import { auth, database } from '../../firebase';
+import { database } from '../../firebase';
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -17,10 +17,6 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 import TextField from 'material-ui/TextField';
-import MaskedInput from 'react-text-mask';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import IconButton from "components/CustomButtons/IconButton.jsx";
 
 
 import registerStyle from "assets/jss/material-kit-react/views/registerPage.jsx";
@@ -36,9 +32,6 @@ class AdoptersRegister extends React.Component {
       name: "",
       nickname: "",
       email: "",
-      password: "",
-      passwordConfirm: "",
-      nascimento: '  /  /    ',
       endereco: "",
       number: "",
       bairro: "",
@@ -63,54 +56,26 @@ class AdoptersRegister extends React.Component {
     });
   };
 
-  TextMaskCustom (props) {
-    const { inputRef, ...other } = props;
-    return (
-      <MaskedInput
-        {...other}
-        ref={inputRef}
-        mask={[ /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-        placeholderChar={'\u2000'}
-        showMask
-      />
-    );
-  }
-
   onSubmit = () => {
-
     const {
       history,
     } = this.props;
 
-    auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(authUser => {
-        database.writeUserData(authUser.user.uid, this.state.nickname, this.state.name, this.state.email, this.state.nascimento,
-                              this.state.endereco, this.state.number, this.state.bairro, this.state.cidade,this.state.estado)
-        .then(writeUsert => {
-          history.push("/")
-        })
-        .catch(error => {
-          this.setState({
-            error: error
-          })
-        })
-      })
-      .catch(error => {
-        this.setState({
-          error: error
-        })
-      });
+    database.writeUserData("", this.state.name, this.state.endereco, this.state.number, this.state.bairro, this.state.cidade,this.state.estado)
+    .then(writeUsert => {
+    history.push("/")
+    })
+    .catch(error => {
+    this.setState({
+    error: error
+    })
+    })
   }
 
   render() {
 
     const isInvalid =
-      this.state.password !== this.state.passwordConfirm ||
-      this.state.password === '' ||
-      this.state.email === '' ||
       this.state.name === '' ||
-      this.state.nickname === '' ||
-      this.state.nascimento === '' || 
       this.state.endereco === '' ||
       this.state.number === '' ||
       this.state.bairro === '' ||
@@ -127,7 +92,7 @@ class AdoptersRegister extends React.Component {
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{
-            height: 400,
+            height: 150,
             color: "white"
           }}
         />
@@ -139,62 +104,26 @@ class AdoptersRegister extends React.Component {
               <GridItem xs={12} sm={12} md={10}>
                 <Card className={classes[this.state.cardAnimaton]}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Registre-se usando suas redes sociais</h4>
-                    <div className={classes.socialLine}>
-                      <IconButton target="_blank" color="transparent"
-                        onClick={e => e.preventDefault()}>
-                        <i className={classes.socialIcons + " fab fa-twitter"} />
-                      </IconButton>
-                      <IconButton target="_blank" color="transparent"
-                        onClick={e => e.preventDefault()} >
-                        <i className={classes.socialIcons + " fab fa-facebook"} />
-                      </IconButton>
-                      <IconButton target="_blank" color="transparent"
-                        onClick={e => e.preventDefault()} >
-                        <i className={classes.socialIcons + " fab fa-google"} />
-                      </IconButton>
-                    </div>
+                    <h4>Edite suas informarções</h4>
                   </CardHeader>
-                  <p className={classes.divider}>Ou da forma clássica</p>
                   <CardBody className={classes.cardbody}>
                     <form className={classes.containerForm} noValidate autoComplete="off">
-                      <GridItem xs={12} sm={12} md={6}>
+                      <GridItem xs={12} sm={12} md={8}>
                         <TextField id="name" label="Nome Completo" className={classes.textField} value={this.state.name}
                           onChange={this.handleChange('name')} margin="normal"
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={2}>
-                      <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="nascimento">Data de Nascimento</InputLabel>
-                        <Input
-                          value={this.state.nascimento}
-                          onChange={this.handleChange('nascimento')}
-                          id="nascimento"
-                          inputComponent={this.TextMaskCustom}
-                        />
-                      </FormControl>
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={2}>
-                        <TextField id="nickname" label="Nickname" className={classes.textField} value={this.state.nickname}
+                      <GridItem xs={12} sm={12} md={4}>
+                        <TextField disabled id="nickname" label="Nickname" className={classes.textField} value={this.state.nickname}
                           onChange={this.handleChange('nickname')} margin="normal"
                           />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField id="email" label="Email" className={classes.textField} value={this.state.email}
+                      <GridItem xs={12} sm={12} md={6}>
+                        <TextField id="email" disabled label="Email" className={classes.textField} value={this.state.email}
                           onChange={this.handleChange('email')} margin="normal"
                           />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={3}>
-                        <TextField id="password" label="Senha" className={classes.textField} value={this.state.password}
-                          onChange={this.handleChange('password')} margin="normal" type="password"
-                          />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={3}>
-                        <TextField id="passwordConfirm" label="Confirme sua Senha" className={classes.textField} value={this.state.passwordConfirm}
-                          onChange={this.handleChange('passwordConfirm')} margin="normal" type="password"
-                          />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={7}>
+                      <GridItem xs={12} sm={12} md={9}>
                         <TextField id="endereco" label="Endereço" className={classes.textField} value={this.state.endereco}
                           onChange={this.handleChange('endereco')} margin="normal"
                           />
@@ -223,7 +152,7 @@ class AdoptersRegister extends React.Component {
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button disabled={isInvalid} color="primary" size="lg" onClick={() => this.onSubmit()}>
-                      Registrar
+                      Atualizar
                     </Button>
                     { this.state.error && <p>{this.state.error.message}</p> }
                   </CardFooter>

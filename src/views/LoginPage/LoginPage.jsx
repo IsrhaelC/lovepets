@@ -51,9 +51,14 @@ class LoginPage extends React.Component {
   };
 
   onSubmit = () => {
+
+    const {
+      history,
+    } = this.props;
+
     auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
     .then(obj => {
-      console.log(this.state.email, obj)
+      history.push("/")
     }).catch(error => {
       console.log(this.state.email)
       console.log(this.state.email, error)

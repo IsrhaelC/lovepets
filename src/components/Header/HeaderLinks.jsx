@@ -54,7 +54,7 @@ function HeaderLinks({ ...props }) {
           className={classes.navLink}
         >
           <Favorite className={classes.icons} />
-          <Link to="/profile-page" className={classes.navItem}>
+          <Link to="/adopters-page" className={classes.navItem}>
             Adotantes
           </Link>
         </Button>

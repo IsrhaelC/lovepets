@@ -14,15 +14,13 @@ import GridItem from "components/Grid/GridItem.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
-import Search from "./Search/Search.jsx"
-import Result from "./Result/Result.jsx"
+import Result from "../SearchPage/Result/Result.jsx"
 
-import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
-
+import feedPage from "assets/jss/material-kit-react/views/feedPage.jsx";
 
 const dashboardRoutes = [];
 
-class SearchPage extends React.Component {
+class FeedPage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -34,7 +32,7 @@ class SearchPage extends React.Component {
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{
-            height: 400,
+            height: 70,
             color: "white"
           }}
           {...rest}
@@ -50,7 +48,6 @@ class SearchPage extends React.Component {
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <Search />
             <Result />
           </div>
         </div>
@@ -60,4 +57,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default withStyles(landingPageStyle)(SearchPage);
+export default withStyles(feedPage)(FeedPage);

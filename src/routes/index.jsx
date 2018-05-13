@@ -1,14 +1,18 @@
 import LandingPage from "views/LandingPage/LandingPage.jsx";
-import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
+import AdoptersPage from "views/AdoptersPage/AdoptersPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import SheltersRescues from "views/SheltersRescues/SheltersRescues.jsx";
 import SearchPage from "views/SearchPage/SearchPage.jsx";
 import SheltersRegister from "views/RegisterPage/SheltersRegister.jsx";
 import AdoptersRegister from "views/RegisterPage/AdoptersRegister.jsx";
+import FeedPage from "views/FeedPage/FeedPage.jsx";
+import UserProfile from "views/UserProfile/UserProfile.jsx";
 
 var indexRoutes = [
-  { path: "/profile-page", name: "ProfilePage", component: ProfilePage },
+  { path: "/user-profile", name: "UserProfile", component: UserProfile },
+  { path: "/feed-page", name: "FeedPage", component: FeedPage },
+  { path: "/adopters-page", name: "AdoptersPage", component: AdoptersPage },
   { path: "/login-page", name: "LoginPage", component: LoginPage },
   { path: "/adopters-register", name: "AdoptersRegister", component: AdoptersRegister },
   { path: "/shelters-register", name: "SheltersRegister", component: SheltersRegister },
@@ -18,4 +22,4 @@ var indexRoutes = [
   { path: "/", name: "LandingPage", component: LandingPage }
 ];
 
-export default indexRoutes;
+export default indexRoutes; 
