@@ -2,6 +2,7 @@ import React from "react";
 // material-ui components
 import withStyles from "material-ui/styles/withStyles";
 import classNames from "classnames";
+import { database } from '../../firebase';
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -36,7 +37,8 @@ class SheltersRegister extends React.Component {
       qtdPetsFind: "",
       qtdPetsAdopters: "",
       qtdPetsCurrent: "",
-      qtdColaboradores: ""
+      qtdColaboradores: "",
+      error: ""
     };
   }
   componentDidMount() {
@@ -54,6 +56,26 @@ class SheltersRegister extends React.Component {
       [name]: event.target.value,
     });
   };
+
+  onSubmit = () => {
+    const {
+      history,
+    } = this.props;
+
+    var currentUser = localStorage.getItem('userUid');
+
+    database.writeShelterData(currentUser, this.state.name, this.state.age, this.state.endereco, this.state.number,
+                              this.state.bairro, this.state.cidade, this.state.estado, this.state.qtdPetsFind,
+                            this.state.qtdPetsAdopters, this.state.qtdPetsCurrent, this.state.qtdColaboradores)
+    .then(shelterData => {
+      history.push("/");
+    }).catch(error => {
+      this.setState({
+        error: error
+      })
+    })
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -137,7 +159,7 @@ class SheltersRegister extends React.Component {
                     </form>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button color="primary" size="lg">
+                    <Button color="primary" size="lg" onClick={() => this.onSubmit()}>
                       Registrar
                     </Button>
                   </CardFooter>

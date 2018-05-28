@@ -56,9 +56,7 @@ class LoginPage extends React.Component {
 
     auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
     .then(obj => {
-      var userLogged = database.userLogged(obj.user.uid);
-      console.log(userLogged);      
-      localStorage.userLogged = "true";
+      database.userLogged(obj.user.uid);
       history.push("/")
     }).catch(error => {
       console.log(this.state.email)

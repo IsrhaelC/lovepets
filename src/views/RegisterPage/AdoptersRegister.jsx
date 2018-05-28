@@ -86,7 +86,7 @@ class AdoptersRegister extends React.Component {
       .then(authUser => {
         database.writeUserData(authUser.user.uid, this.state.nickname, this.state.name, this.state.email, this.state.nascimento,
                               this.state.endereco, this.state.number, this.state.bairro, this.state.cidade,this.state.estado)
-        .then(writeUsert => {
+        .then(writeUser => {
           history.push("/")
         })
         .catch(error => {

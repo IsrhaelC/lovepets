@@ -11,20 +11,35 @@ export const writeUserData = (userId, nickname, name, email, nascimento, enderec
     bairro: bairro, 
     cidade: cidade, 
     estado: estado
-  });
+});
+
+export const writeShelterData = (userId, name, age, endereco, number, bairro, cidade, estado, qtdPetsFind, qtdPetsAdopters, qtdPetsCurrent, qtdColaboradores) =>
+  database.ref('shelters/' + userId).set({
+    name: name,
+    age: age,
+    endereco: endereco, 
+    number: number, 
+    bairro: bairro, 
+    cidade: cidade, 
+    estado: estado, 
+    qtdPetsFind: qtdPetsFind,
+    qtdPetsAdopters: qtdPetsAdopters,
+    qtdPetsCurrent: qtdPetsCurrent,
+    qtdColaboradores: qtdColaboradores
+});
 
 export const userLogged = (uid) => {
-  return database.ref('/users/' + uid).once('value').then(function(user) {
-  var currentUser = {
-      name: user.name,
-      nickname: user.nickname,
-      email: user.email,
-      nascimento: user.nascimento,
-      endereco: user.endereco,
-      number: user.number,
-      bairro: user.bairro,
-      cidade: user.cidade,
-      estado: user.estado
-    }
+  return database.ref('/users/' + uid).once('value').then((snapshot) => {
+    localStorage.userUid = uid;
+    localStorage.userLogged = "true";
+    localStorage.userName = snapshot.val().name;
+    localStorage.userNickname = snapshot.val().nickname;
+    localStorage.userEmail = snapshot.val().email;
+    localStorage.userNascimento = snapshot.val().nascimento;
+    localStorage.userEndereco = snapshot.val().endereco;
+    localStorage.userNumber = snapshot.val().number;
+    localStorage.userBairro = snapshot.val().bairro;
+    localStorage.userCidade = snapshot.val().cidade;
+    localStorage.userEstado = snapshot.val().estado;
   });
 }

@@ -22,7 +22,7 @@ import { auth } from '../../firebase';
 
 function HeaderLinks({ ...props }) {
   const { history, classes } = props;
-  var userLogged = localStorage.getItem('userLogged');
+  var userLogged = localStorage.getItem('userLogged') ? localStorage.getItem('userLogged') : "false";
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -123,21 +123,26 @@ function HeaderLinks({ ...props }) {
       }
       {userLogged === "true" && 
         <ListItem className={classes.listItem}>
-        <Button
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-          onClick={() => {
-            auth.doSignOut()
-            localStorage.userLogged = "false";
-          }}
-        >
-          <Person className={classes.icons} />
-          <Link to="/" className={classes.navItem}>
-            Sair
-          </Link>
-        </Button>
-      </ListItem>
+          <CustomDropdown
+            buttonText="Minha Conta"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={Person}
+            dropdownList={[
+              <Link to="/" className={classes.dropdownLink}>
+                Favoritos
+              </Link>,
+              <Link to="/" className={classes.dropdownLink}>
+                Dashboard Abrigo
+              </Link>,
+              <Link to="/" className={classes.dropdownLink} onClick={() => { auth.doSignOut(); localStorage.clear();}}>
+                Sair
+              </Link>
+            ]}
+          />
+        </ListItem>
       }
     </List>
   );
