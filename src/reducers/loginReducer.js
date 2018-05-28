@@ -1,6 +1,6 @@
 import { LOGIN_ACTION } from '../actions/actionTypes';
 const initialState = {
-  user: 'LovePets'
+  user: 'LovePets Redux'
 };
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {

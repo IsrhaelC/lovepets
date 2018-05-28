@@ -18,9 +18,11 @@ import Button from "components/CustomButtons/Button.jsx";
 import IconButton from "components/CustomButtons/IconButton.jsx";
 
 import headerLinksStyle from "assets/jss/material-kit-react/components/headerLinksStyle.jsx";
+import { auth } from '../../firebase';
 
 function HeaderLinks({ ...props }) {
-  const { classes } = props;
+  const { history, classes } = props;
+  var userLogged = localStorage.getItem('userLogged');
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -71,37 +73,72 @@ function HeaderLinks({ ...props }) {
           </Link>
         </Button>
       </ListItem>
-      <ListItem className={classes.listItem}>
-        <CustomDropdown
-          buttonText="Registro"
-          buttonProps={{
-            className: classes.navLink,
-            color: "transparent"
-          }}
-          buttonIcon={PersonAdd}
-          dropdownList={[
-            <Link to="/shelters-register" className={classes.dropdownLink}>
-              Abrigos e Protetores
-            </Link>,
-            // eslint-disable-next-line
-            <Link to="/adopters-register" className={classes.dropdownLink}>
-              Adotantes
+      {userLogged === "false" && 
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            buttonText="Registro"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={PersonAdd}
+            dropdownList={[
+              <Link to="/adopters-register" className={classes.dropdownLink}>
+                Adotantes
+              </Link>
+            ]}
+          />
+        </ListItem>
+      }
+      {userLogged === "true" && 
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            buttonText="Registrar Abrigo"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={PersonAdd}
+            dropdownList={[
+              <Link to="/shelters-register" className={classes.dropdownLink}>
+                Abrigos e Protetores
+              </Link>
+            ]}
+          />
+        </ListItem>
+      }
+      {userLogged === "false" && 
+        <ListItem className={classes.listItem}>
+          <Button
+            color="transparent"
+            target="_blank"
+            className={classes.navLink}
+          >
+            <Person className={classes.icons} />
+            <Link to="/login-page" className={classes.navItem}>
+              Login
             </Link>
-          ]}
-        />
-      </ListItem>
-      <ListItem className={classes.listItem}>
+          </Button>
+        </ListItem>
+      }
+      {userLogged === "true" && 
+        <ListItem className={classes.listItem}>
         <Button
           color="transparent"
           target="_blank"
           className={classes.navLink}
+          onClick={() => {
+            auth.doSignOut()
+            localStorage.userLogged = "false";
+          }}
         >
           <Person className={classes.icons} />
-          <Link to="/login-page" className={classes.navItem}>
-            Login
+          <Link to="/" className={classes.navItem}>
+            Sair
           </Link>
         </Button>
       </ListItem>
+      }
     </List>
   );
 }

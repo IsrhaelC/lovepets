@@ -18,8 +18,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import TextField from 'material-ui/TextField';
-import { auth } from '../../firebase';
-
+import { auth, database } from '../../firebase';
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
@@ -51,13 +50,15 @@ class LoginPage extends React.Component {
   };
 
   onSubmit = () => {
-
     const {
       history,
     } = this.props;
 
     auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
     .then(obj => {
+      var userLogged = database.userLogged(obj.user.uid);
+      console.log(userLogged);      
+      localStorage.userLogged = "true";
       history.push("/")
     }).catch(error => {
       console.log(this.state.email)
@@ -72,7 +73,7 @@ class LoginPage extends React.Component {
         <Header
           absolute
           color="transparent"
-          brand="LovePets"
+          brand={"Lovepets"}
           rightLinks={<HeaderLinks />}
           {...rest}
         />

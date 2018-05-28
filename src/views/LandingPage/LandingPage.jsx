@@ -27,14 +27,13 @@ const dashboardRoutes = [];
 
 class LandingPage extends React.Component {
   render() {
-    const { user } = this.props;
     const { classes, ...rest } = this.props;
     return (
       <div>
         <Header
           color="transparent"
           routes={dashboardRoutes}
-          brand={user}
+          brand={"LovePets"}
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{
