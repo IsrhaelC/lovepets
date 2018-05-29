@@ -8,8 +8,10 @@ import SheltersRegister from "views/RegisterPage/SheltersRegister.jsx";
 import AdoptersRegister from "views/RegisterPage/AdoptersRegister.jsx";
 import FeedPage from "views/FeedPage/FeedPage.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
+import Dashboard from "views/Dashboard/Dashboard.jsx";
 
 var indexRoutes = [
+  { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/user-profile", name: "UserProfile", component: UserProfile },
   { path: "/feed-page", name: "FeedPage", component: FeedPage },
   { path: "/adopters-page", name: "AdoptersPage", component: AdoptersPage },

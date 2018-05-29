@@ -10,7 +10,7 @@ import ListItem from "material-ui/List/ListItem";
 import Tooltip from "material-ui/Tooltip";
 
 // @material-ui/icons
-import { Pets, SupervisorAccount, Favorite, Email, PersonAdd, Person  } from "@material-ui/icons";
+import { Pets, SupervisorAccount, Favorite, Email, PersonAdd, AccountCircle, Person } from "@material-ui/icons";
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
@@ -129,7 +129,7 @@ function HeaderLinks({ ...props }) {
               className: classes.navLink,
               color: "transparent"
             }}
-            buttonIcon={Person}
+            buttonIcon={AccountCircle}
             dropdownList={[
               <Link to="/" className={classes.dropdownLink}>
                 Favoritos
