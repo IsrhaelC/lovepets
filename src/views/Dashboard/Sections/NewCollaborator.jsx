@@ -23,7 +23,7 @@ import dashboard from "assets/jss/material-kit-react/views/dashboard.jsx";
 
 const dashboardRoutes = [];
 
-class Dashboard extends Component {
+class NewCollaborator extends Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -90,10 +90,11 @@ class Dashboard extends Component {
         </List>
         </Drawer>
         <main className={classes.content}>
+          <div className={classes.toolbar} />
         </main>
       </div>
       )
   }
 };
 
-export default withStyles(dashboard)(Dashboard);
+export default withStyles(dashboard)(NewCollaborator);
