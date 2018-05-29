@@ -15,6 +15,8 @@ const dashboard = theme => ({
     paddingTop: "80px",
   },
   content: {
+    paddingTop: "80px",
+    paddingLeft: "260px",
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
