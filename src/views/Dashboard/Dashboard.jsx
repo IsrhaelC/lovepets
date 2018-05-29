@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import withStyles from "material-ui/styles/withStyles";
+import { withStyles, Grid } from "material-ui";
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -147,22 +147,24 @@ class Dashboard extends Component {
         </List>
         </Drawer>
         <main className={classes.content}>
-          <ChartCard
-            chart={
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            }
-            chartColor="red"
-            title="Completed Tasks"
-            text="Last Campaign Performance"
-            statIcon={AccessTime}
-            statText="campaign sent 2 days ago"
-          />
+          <Grid container>
+            <ChartCard
+              chart={
+                <ChartistGraph
+                  className="ct-chart"
+                  data={completedTasksChart.data}
+                  type="Line"
+                  options={completedTasksChart.options}
+                  listener={completedTasksChart.animation}
+                />
+              }
+              chartColor="red"
+              title="Completed Tasks"
+              text="Last Campaign Performance"
+              statIcon={AccessTime}
+              statText="campaign sent 2 days ago"
+            />
+          </Grid>
         </main>
       </div>
       )
