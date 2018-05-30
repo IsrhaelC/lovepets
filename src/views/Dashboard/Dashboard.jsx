@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { withStyles, Grid } from "material-ui";
+import { withStyles } from "material-ui";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -10,9 +12,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
-import ChartCard from "components/Card/ChartCard.jsx"
-import ChartistGraph from "react-chartist";
-import { AccessTime } from "@material-ui/icons";
+import StatsCard from "components/Card/StatsCard.jsx"
+import { ContentCopy, Warning } from "@material-ui/icons";
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Pets from '@material-ui/icons/Pets';
@@ -24,61 +25,6 @@ import MonetizationOff from '@material-ui/icons/MoneyOff';
 import dashboard from "assets/jss/material-kit-react/views/dashboard.jsx";
 
 const dashboardRoutes = [];
-var Chartist = require("chartist");
-
-var delays = 80,
-  durations = 500;
-var delays2 = 80,
-  durations2 = 500;
-
-const completedTasksChart = {
-  data: {
-    labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
-    series: [[230, 750, 450, 300, 280, 240, 200, 190]]
-  },
-  options: {
-    lineSmooth: Chartist.Interpolation.cardinal({
-      tension: 0
-    }),
-    low: 0,
-    high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-    chartPadding: {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
-  },
-  animation: {
-    draw: function(data) {
-      if (data.type === "line" || data.type === "area") {
-        data.element.animate({
-          d: {
-            begin: 600,
-            dur: 700,
-            from: data.path
-              .clone()
-              .scale(1, 0)
-              .translate(0, data.chartRect.height())
-              .stringify(),
-            to: data.path.clone().stringify(),
-            easing: Chartist.Svg.Easing.easeOutQuint
-          }
-        });
-      } else if (data.type === "point") {
-        data.element.animate({
-          opacity: {
-            begin: (data.index + 1) * delays,
-            dur: durations,
-            from: 0,
-            to: 1,
-            easing: "ease"
-          }
-        });
-      }
-    }
-  }
-};
 
 class Dashboard extends Component {
   render() {
@@ -147,24 +93,58 @@ class Dashboard extends Component {
         </List>
         </Drawer>
         <main className={classes.content}>
-          <Grid container>
-            <ChartCard
-              chart={
-                <ChartistGraph
-                  className="ct-chart"
-                  data={completedTasksChart.data}
-                  type="Line"
-                  options={completedTasksChart.options}
-                  listener={completedTasksChart.animation}
-                />
-              }
-              chartColor="red"
-              title="Completed Tasks"
-              text="Last Campaign Performance"
-              statIcon={AccessTime}
-              statText="campaign sent 2 days ago"
-            />
-          </Grid>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={4}>
+              <StatsCard
+                icon={ContentCopy}
+                iconColor="orange"
+                title="Animais no Abrigo atualmente"
+                description="49/50"
+                small="GB"
+                statIcon={Warning}
+                statIconColor="danger"
+                statText="Last 24 Hours"
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={4}>
+              <StatsCard
+                icon={ContentCopy}
+                iconColor="green"
+                title="Animais Adotados"
+                description="49/50"
+                small="GB"
+                statIcon={Warning}
+                statIconColor="danger"
+                statText="Last 24 Hours"
+              />
+            </GridItem>
+          </GridContainer>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={4}>
+              <StatsCard
+                icon={ContentCopy}
+                iconColor="blue"
+                title="Número de Receitas"
+                description="49/50"
+                small="GB"
+                statIcon={Warning}
+                statIconColor="danger"
+                statText="Last 24 Hours"
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={4}>
+              <StatsCard
+                icon={ContentCopy}
+                iconColor="red"
+                title="Número de Despesas"
+                description="49/50"
+                small="GB"
+                statIcon={Warning}
+                statIconColor="danger"
+                statText="Last 24 Hours"
+              />
+            </GridItem>
+          </GridContainer>
         </main>
       </div>
       )
