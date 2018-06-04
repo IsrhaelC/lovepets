@@ -18,9 +18,6 @@ import { ContentCopy, Warning } from "@material-ui/icons";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Pets from '@material-ui/icons/Pets';
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
-import MonetizationOn from '@material-ui/icons/MonetizationOn';
-import MonetizationOff from '@material-ui/icons/MoneyOff';
-
 
 import dashboard from "assets/jss/material-kit-react/views/dashboard.jsx";
 
@@ -74,22 +71,6 @@ class Dashboard extends Component {
               <ListItemText primary="Adicionar Colaborador" />
             </ListItem>
           </Link>
-          <Link to="/new-income">
-            <ListItem button>
-              <ListItemIcon>
-                <MonetizationOn />
-              </ListItemIcon>
-              <ListItemText primary="Cadastrar Receita" />
-            </ListItem>
-          </Link>
-          <Link to="/new-expense">
-            <ListItem button>
-              <ListItemIcon>
-                <MonetizationOff />
-              </ListItemIcon>
-              <ListItemText primary="Cadastrar Despesa" />
-            </ListItem>
-          </Link>
         </List>
         </Drawer>
         <main className={classes.content}>
@@ -111,32 +92,6 @@ class Dashboard extends Component {
                 icon={ContentCopy}
                 iconColor="green"
                 title="Animais Adotados"
-                description="49/50"
-                small="GB"
-                statIcon={Warning}
-                statIconColor="danger"
-                statText="Last 24 Hours"
-              />
-            </GridItem>
-          </GridContainer>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
-              <StatsCard
-                icon={ContentCopy}
-                iconColor="blue"
-                title="Número de Receitas"
-                description="49/50"
-                small="GB"
-                statIcon={Warning}
-                statIconColor="danger"
-                statText="Last 24 Hours"
-              />
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <StatsCard
-                icon={ContentCopy}
-                iconColor="red"
-                title="Número de Despesas"
                 description="49/50"
                 small="GB"
                 statIcon={Warning}

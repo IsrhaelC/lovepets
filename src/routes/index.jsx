@@ -11,12 +11,8 @@ import UserProfile from "views/UserProfile/UserProfile.jsx";
 import Dashboard from "views/Dashboard/Dashboard.jsx";
 import MyPets from "views/Dashboard/Sections/MyPets.jsx";
 import NewCollaborator from "views/Dashboard/Sections/NewCollaborator.jsx";
-import NewExpense from "views/Dashboard/Sections/NewExpense.jsx";
-import NewIncome from "views/Dashboard/Sections/NewIncome.jsx";
 
 var indexRoutes = [
-  { path: "/new-income", name: "NewIncome", component: NewIncome },
-  { path: "/new-expense", name: "NewExpense", component: NewExpense },
   { path: "/new-collaborator", name: "NewCollaborator", component: NewCollaborator },
   { path: "/my-pets", name: "MyPets", component: MyPets },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
