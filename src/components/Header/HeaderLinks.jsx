@@ -139,13 +139,16 @@ function HeaderLinks({ ...props }) {
                 </Link>,
                 <Divider />,
                 <Link to="/" className={classes.dropdownLink}>
+                  Meu Abrigo
+                </Link>,
+                <Link to="/" className={classes.dropdownLink}>
                   Meus Pets
                 </Link>,
                 <Link to="/" className={classes.dropdownLink}>
                   Colaboradores
                 </Link>,
                 <Link to="/" className={classes.dropdownLink}>
-                  Menssagens
+                  Mensagens
                 </Link>,
                 <Divider />,
                 <Link to="/" className={classes.dropdownLink} onClick={() => { auth.doSignOut(); localStorage.clear();}}>
