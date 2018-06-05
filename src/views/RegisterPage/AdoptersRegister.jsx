@@ -44,6 +44,7 @@ class AdoptersRegister extends React.Component {
       bairro: "",
       cidade: "",
       estado: "",
+      hasShelter: "false",
       error: null
      };
   }
@@ -85,7 +86,7 @@ class AdoptersRegister extends React.Component {
     auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(authUser => {
         database.writeUserData(authUser.user.uid, this.state.nickname, this.state.name, this.state.email, this.state.nascimento,
-                              this.state.endereco, this.state.number, this.state.bairro, this.state.cidade,this.state.estado)
+                              this.state.endereco, this.state.number, this.state.bairro, this.state.cidade,this.state.estado, this.state.hasShelter)
         .then(writeUser => {
           history.push("/")
         })

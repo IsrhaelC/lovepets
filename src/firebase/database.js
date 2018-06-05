@@ -1,6 +1,6 @@
 import { database } from './firebase';
 
-export const writeUserData = (userId, nickname, name, email, nascimento, endereco, number, bairro, cidade, estado) =>
+export const writeUserData = (userId, nickname, name, email, nascimento, endereco, number, bairro, cidade, estado, hasShelter) =>
   database.ref('users/' + userId).set({
     name: name,
     nickname: nickname,
@@ -10,8 +10,12 @@ export const writeUserData = (userId, nickname, name, email, nascimento, enderec
     number: number, 
     bairro: bairro, 
     cidade: cidade, 
-    estado: estado
+    estado: estado,
+    hasShelter: hasShelter
 });
+
+export const updateUserData = (updates) =>
+  database.ref().update(updates);
 
 export const writeShelterData = (userId, name, age, endereco, number, bairro, cidade, estado, qtdPetsFind, qtdPetsAdopters, qtdPetsCurrent, qtdColaboradores) =>
   database.ref('shelters/' + userId).set({
@@ -30,16 +34,21 @@ export const writeShelterData = (userId, name, age, endereco, number, bairro, ci
 
 export const userLogged = (uid) => {
   return database.ref('/users/' + uid).once('value').then((snapshot) => {
-    localStorage.userUid = uid;
     localStorage.userLogged = "true";
-    localStorage.userName = snapshot.val().name;
-    localStorage.userNickname = snapshot.val().nickname;
-    localStorage.userEmail = snapshot.val().email;
-    localStorage.userNascimento = snapshot.val().nascimento;
-    localStorage.userEndereco = snapshot.val().endereco;
-    localStorage.userNumber = snapshot.val().number;
-    localStorage.userBairro = snapshot.val().bairro;
-    localStorage.userCidade = snapshot.val().cidade;
-    localStorage.userEstado = snapshot.val().estado;
+    localStorage.userUid = uid;
+    var userLoggedObj = {
+      uid: uid,
+      name: snapshot.val().name,
+      nickname: snapshot.val().nickname,
+      email: snapshot.val().email,
+      nascimento: snapshot.val().nascimento,
+      endereco: snapshot.val().endereco,
+      number: snapshot.val().number,
+      bairro: snapshot.val().bairro,
+      cidade: snapshot.val().cidade,
+      estado: snapshot.val().estado,
+      hasShelter: snapshot.val().hasShelter
+    }
+    localStorage.setItem('currentUser', JSON.stringify(userLoggedObj));
   });
 }

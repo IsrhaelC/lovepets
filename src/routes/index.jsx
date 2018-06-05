@@ -8,14 +8,12 @@ import SheltersRegister from "views/RegisterPage/SheltersRegister.jsx";
 import AdoptersRegister from "views/RegisterPage/AdoptersRegister.jsx";
 import FeedPage from "views/FeedPage/FeedPage.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
-import Dashboard from "views/Dashboard/Dashboard.jsx";
 import MyPets from "views/Dashboard/Sections/MyPets.jsx";
 import NewCollaborator from "views/Dashboard/Sections/NewCollaborator.jsx";
 
 var indexRoutes = [
   { path: "/new-collaborator", name: "NewCollaborator", component: NewCollaborator },
   { path: "/my-pets", name: "MyPets", component: MyPets },
-  { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/user-profile", name: "UserProfile", component: UserProfile },
   { path: "/feed-page", name: "FeedPage", component: FeedPage },
   { path: "/adopters-page", name: "AdoptersPage", component: AdoptersPage },
