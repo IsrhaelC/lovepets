@@ -1,5 +1,4 @@
 import { container, title } from "assets/jss/material-kit-react.jsx";
-import { relative } from "path";
 
 const feedPage = {
   container: {
@@ -37,6 +36,15 @@ const feedPage = {
     position: "fixed !important",
     top: "80vh",
     left: "90vw"
+  },
+  formControl: {
+    minWidth: "20vw !important",
+    textAlign: "center",
+    margin: "5px"
+  },
+  formContainer: {
+    minWidth: "20vw",
+    textAlign: "center",
   }
 };
 
