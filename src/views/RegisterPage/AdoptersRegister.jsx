@@ -128,7 +128,7 @@ class AdoptersRegister extends React.Component {
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{
-            height: 400,
+            height: 200,
             color: "white"
           }}
         />
@@ -164,16 +164,11 @@ class AdoptersRegister extends React.Component {
                           onChange={this.handleChange('name')} margin="normal"
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={2}>
-                      <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="nascimento">Data de Nascimento</InputLabel>
-                        <Input
-                          value={this.state.nascimento}
-                          onChange={this.handleChange('nascimento')}
-                          id="nascimento"
-                          inputComponent={this.TextMaskCustom}
+                      <GridItem xs={12} sm={12} md={3}>
+                        <TextField id="nascimento" label="Nascimento" type="date" defaultValue="2017-05-24"
+                          className={classes.textField} InputLabelProps={{shrink: true}}
+                          onChange={this.handleChange('nascimento')} margin="normal" value={this.state.nascimento}
                         />
-                      </FormControl>
                       </GridItem>
                       <GridItem xs={12} sm={12} md={2}>
                         <TextField id="nickname" label="Nickname" className={classes.textField} value={this.state.nickname}

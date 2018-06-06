@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import FileUploader from 'react-firebase-file-uploader';
+import firebase from 'firebase';
 
 import withStyles from "material-ui/styles/withStyles";
 
@@ -35,7 +37,11 @@ class MyPets extends Component {
     age: "",
     gender: "",
     type: "",
-    size: ""
+    size: "",
+    avatar: '',
+    isUploading: false,
+    progress: 0,
+    avatarURL: ''
   };
 
   handleClickOpen = () => {
@@ -48,6 +54,20 @@ class MyPets extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+
+  handleProgress = (progress) => this.setState({progress});
+
+  handleUploadError = (error) => {
+  this.setState({isUploading: false});
+  console.error(error);
+  }
+
+  handleUploadSuccess = (filename) => {
+  this.setState({avatar: filename, progress: 100, isUploading: false});
+    firebase.storage().ref('petImages').child(filename).getDownloadURL().then(url => this.setState({avatarURL: url}));
   };
 
   render() {
@@ -159,6 +179,16 @@ class MyPets extends Component {
                 <MenuItem value={"femea"}>Fêmea</MenuItem>
               </Select>
             </FormControl>
+            <FileUploader
+              accept="image/*"
+              name="avatar"
+              randomizeFilename
+              storageRef={firebase.storage().ref('petImages')}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccess}
+              onProgress={this.handleProgress}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
