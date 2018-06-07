@@ -57,6 +57,10 @@ class LoginPage extends React.Component {
     auth.doSignInWithEmailAndPassword(this.state.email, this.state.password)
     .then(obj => {
       database.userLogged(obj.user.uid);
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if(currentUser.hasShelter === "true"){
+        database.shelter(obj.user.uid);
+      }
       history.push("/")
     }).catch(error => {
       console.log(this.state.email)

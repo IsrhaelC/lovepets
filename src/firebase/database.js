@@ -16,9 +16,10 @@ export const writeUserData = (userId, nickname, name, email, nascimento, enderec
 
 const petUid = Math.floor(Math.random() * 1000) + 1;
 
-export const writePetData = (shelterUid, name, descricao, age, gender, type, size, avatarURL, dataCadastro) =>
+export const writePetData = (shelterUid, shelterName, name, descricao, age, gender, type, size, avatarURL, dataCadastro, shortDesc) =>
   database.ref('pets/' + petUid).set({
     shelterUid: shelterUid,
+    shelterName: shelterName,
     name: name,
     descricao: descricao,
     age: age,
@@ -26,7 +27,8 @@ export const writePetData = (shelterUid, name, descricao, age, gender, type, siz
     type: type,
     size: size,
     imageURL: avatarURL,
-    dataCadastro: dataCadastro
+    dataCadastro: dataCadastro,
+    shortDesc: shortDesc
 });
 
 export const updateUserData = (updates) =>
@@ -66,4 +68,27 @@ export const userLogged = (uid) => {
     }
     localStorage.setItem('currentUser', JSON.stringify(userLoggedObj));
   });
+}
+
+export const shelter = (uid) => {
+  return database.ref('/shelters/' + uid).once('value').then((snapshot) => {
+    var shelter = {
+      age: snapshot.val().age,
+      bairro: snapshot.val().bairro,
+      cidade:snapshot.val().cidade,
+      endereco: snapshot.val().endereco,
+      estado: snapshot.val().estado,
+      name: snapshot.val().name,
+      number: snapshot.val().number,
+      qtdColaboradores: snapshot.val().qtdColaboradores,
+      qtdPetsAdopters: snapshot.val().qtdPetsAdopters,
+      qtdPetsCurrent: snapshot.val().qtdPetsCurrent,
+      qtdPetsFind: snapshot.val().qtdPetsFind
+    }
+    localStorage.setItem('shelter', JSON.stringify(shelter));
+  });
+}
+
+export const allPets = () => {
+  return database.ref('/pets/').once('value');
 }

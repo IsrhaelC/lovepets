@@ -24,8 +24,14 @@ import { InputLabel } from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
 import Select from 'material-ui/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-import Result from "../../SearchPage/Result/Result.jsx"
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import Typography from 'material-ui/Typography';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
 
 import mypets from "assets/jss/material-kit-react/views/mypets.jsx";
 
@@ -36,6 +42,7 @@ class MyPets extends Component {
   state = {
     open: false,
     name: "",
+    shortDesc: "",
     descricao: "",
     age: "",
     gender: "",
@@ -44,8 +51,21 @@ class MyPets extends Component {
     avatar: '',
     isUploading: false,
     progress: 0,
-    avatarURL: ''
+    avatarURL: '',
+    myPets: []
   };
+
+  componentWillMount () {
+    var childs = [];
+    database.allPets().then((snapshot) => {
+      snapshot.forEach(function(child) {
+        childs.push(child.val());
+      })
+      this.setState({
+        myPets: childs
+      })
+    });
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -53,16 +73,27 @@ class MyPets extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    var childs = [];
+    database.allPets().then((snapshot) => {
+      snapshot.forEach(function(child) {
+        childs.push(child.val());
+      })
+      this.setState({
+        myPets: childs
+      })
+    });
   };
 
   onSubmit = () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentShelter = JSON.parse(localStorage.getItem('shelter'));
     const monName = ["janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro"];
     const now = new Date();
 
     const dataCadastro = now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
 
-    database.writePetData(currentUser.uid, this.state.name, this.state.descricao, this.state.age, this.state.gender, this.state.type, this.state.size, this.state.avatarURL, dataCadastro)
+    database.writePetData(currentUser.uid, currentShelter.name, this.state.name, this.state.descricao,
+      this.state.age, this.state.gender, this.state.type, this.state.size, this.state.avatarURL, dataCadastro, this.state.shortDesc)
     .then(() => this.handleClose())
   }
 
@@ -130,11 +161,30 @@ class MyPets extends Component {
             <DialogContentText>
               Informe os dados do novo pet
             </DialogContentText>
-            <TextField onChange={this.handleChangeName('name')} value={this.state.name} name="name" margin="dense" id="name" label="Nome do Pet" type="text" className={classes.formControl}/>
+            <TextField
+              onChange={this.handleChangeName('name')}
+              value={this.state.name}
+              name="name"
+              margin="dense"
+              id="name"
+              label="Nome do Pet"
+              type="text"
+              className={classes.formControl}
+            />
+            <TextField
+              onChange={this.handleChangeName('shortDesc')}
+              value={this.state.shortDesc}
+              name="shortDesc"
+              margin="dense"
+              id="shortDesc"
+              label="Descrição curta"
+              type="text"
+              className={classes.formControl}
+            />
             <TextField
               id="multiline-static"
               name="descricao"
-              label="Descrição"
+              label="Descrição  Completa"
               onChange={this.handleChangeName('descricao')}
               multiline
               rows="4"
@@ -187,9 +237,9 @@ class MyPets extends Component {
                 <MenuItem value="">
                   <em>Selecionar</em>
                 </MenuItem>
-                <MenuItem value={"pqn"}>Pequeno Porte</MenuItem>
-                <MenuItem value={"md"}>Médio Porte</MenuItem>
-                <MenuItem value={"grd"}>Grande Porte</MenuItem>
+                <MenuItem value={"pequeno"}>Pequeno Porte</MenuItem>
+                <MenuItem value={"medio"}>Médio Porte</MenuItem>
+                <MenuItem value={"grande"}>Grande Porte</MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -233,7 +283,42 @@ class MyPets extends Component {
         </Dialog>
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <Result />
+            <GridContainer justify="center">
+              {this.state.myPets.map((result, index) => (
+                <GridItem key={index} xs={6} sm={6} md={4} className={classes.cardGrid}>
+                  <Card>
+                    <CardHeader
+                      color="primary"
+                      avatar={
+                        <Avatar aria-label="Recipe" className={classes.avatar}>I</Avatar>}
+                      title={result.shelterName}
+                      subheader={result.dataCadastro}>
+                    </CardHeader>
+                    <CardMedia
+                      className={classes.media}
+                      image={result.imageURL}
+                      title={result.name}
+                    />
+                    <CardContent>
+                      <Typography component="p">
+                        <strong>{result.name}</strong>
+                      </Typography>
+                      <Typography component="p">
+                        {result.shortDesc}
+                      </Typography>
+                    </CardContent>
+                    <CardActions className={classes.actions} disableActionSpacing>
+                      <IconButton aria-label="Add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="Share">
+                        <ShareIcon />
+                      </IconButton>
+                    </CardActions>
+                  </Card>
+                </GridItem>
+              ))}
+            </GridContainer>
           </div>
         </div>
         <Footer />

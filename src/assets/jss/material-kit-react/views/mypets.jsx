@@ -1,11 +1,6 @@
 import { container, title } from "assets/jss/material-kit-react.jsx";
 
 const feedPage = {
-  container: {
-    zIndex: "1",
-    color: "#FFFFFF",
-    ...container
-  },
   title: {
     ...title,
     display: "inline-block",
@@ -45,6 +40,35 @@ const feedPage = {
   formContainer: {
     minWidth: "20vw",
     textAlign: "center",
+  },
+  container: {
+    ...container,
+    zIndex: "2",
+    position: "relative",
+    paddingTop: "20vh",
+    color: "#FFFFFF"
+  },
+  section: {
+    padding: "70px 0"
+  },
+  card: {
+    maxWidth: 400,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  actions: {
+    display: 'flex',
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: "gray",
+  },
+  cardGrid : {
+    marginBottom: "15px",
   }
 };
 
