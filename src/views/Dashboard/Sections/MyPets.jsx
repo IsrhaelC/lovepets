@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classNames from "classnames";
 import FileUploader from 'react-firebase-file-uploader';
 import firebase from 'firebase';
+import { database } from '../../../firebase';
 
 import withStyles from "material-ui/styles/withStyles";
 
@@ -34,6 +35,8 @@ class MyPets extends Component {
 
   state = {
     open: false,
+    name: "",
+    descricao: "",
     age: "",
     gender: "",
     type: "",
@@ -52,8 +55,21 @@ class MyPets extends Component {
     this.setState({ open: false });
   };
 
+  onSubmit = () => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    database.writePetData(currentUser.uid, this.state.name, this.state.age, 
+      this.state.gender, this.state.type, this.state.size, this.state.avatarURL).then(() => this.handleClose)
+      .catch(() => alert("Deu merda"))
+  }
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChangeName = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
   };
 
   handleUploadStart = () => this.setState({isUploading: true, progress: 0});
@@ -61,13 +77,17 @@ class MyPets extends Component {
   handleProgress = (progress) => this.setState({progress});
 
   handleUploadError = (error) => {
-  this.setState({isUploading: false});
-  console.error(error);
+    this.setState({isUploading: false});
+    console.error(error);
+    alert(error)
   }
 
   handleUploadSuccess = (filename) => {
-  this.setState({avatar: filename, progress: 100, isUploading: false});
-    firebase.storage().ref('petImages').child(filename).getDownloadURL().then(url => this.setState({avatarURL: url}));
+    this.setState({avatar: filename, progress: 100, isUploading: false});
+    firebase.storage().ref('petImages').child(filename).getDownloadURL().then(url => {
+      this.setState({avatarURL: url})
+      alert(url)
+    }).catch(url => alert("catch"));
   };
 
   render() {
@@ -101,10 +121,12 @@ class MyPets extends Component {
             <DialogContentText>
               Informe os dados do novo pet
             </DialogContentText>
-            <TextField margin="dense" id="name" label="Nome do Pet" type="text" className={classes.formControl}/>
+            <TextField onChange={this.handleChangeName('name')} value={this.state.name} name="name" margin="dense" id="name" label="Nome do Pet" type="text" className={classes.formControl}/>
             <CustomInput
               labelText="Descrição do pet"
-              id="desc"
+              id="descricao"
+              onChange={this.handleChangeName('descricao')}
+              value={this.state.descricao}
               formControlProps={{
                 className: classes.formControl
               }}
@@ -194,7 +216,7 @@ class MyPets extends Component {
             <Button onClick={this.handleClose} color="primary">
               Cancelar
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.onSubmit} color="primary">
               Cadastrar
             </Button>
           </DialogActions>

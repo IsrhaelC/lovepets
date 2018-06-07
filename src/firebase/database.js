@@ -14,6 +14,18 @@ export const writeUserData = (userId, nickname, name, email, nascimento, enderec
     hasShelter: hasShelter
 });
 
+export const writePetData = (shelterUid, name, descricao, age, gender, type, size, avatarURL) =>
+  database.ref('pets/' + avatarURL).set({
+    shelterUid: shelterUid,
+    name: name,
+    descricao: descricao,
+    age: age,
+    gender: gender,
+    type: type,
+    size: size,
+    avatarURL: avatarURL
+});
+
 export const updateUserData = (updates) =>
   database.ref().update(updates);
 

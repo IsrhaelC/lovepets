@@ -17,9 +17,6 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 import TextField from 'material-ui/TextField';
-import MaskedInput from 'react-text-mask';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
 import IconButton from "components/CustomButtons/IconButton.jsx";
 
 
@@ -64,21 +61,7 @@ class AdoptersRegister extends React.Component {
     });
   };
 
-  TextMaskCustom (props) {
-    const { inputRef, ...other } = props;
-    return (
-      <MaskedInput
-        {...other}
-        ref={inputRef}
-        mask={[ /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-        placeholderChar={'\u2000'}
-        showMask
-      />
-    );
-  }
-
   onSubmit = () => {
-
     const {
       history,
     } = this.props;
