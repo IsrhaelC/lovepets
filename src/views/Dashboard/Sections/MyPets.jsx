@@ -23,9 +23,9 @@ import { MenuItem } from 'material-ui/Menu';
 import { InputLabel } from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
 import Select from 'material-ui/Select';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Result from "../../SearchPage/Result/Result.jsx"
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import mypets from "assets/jss/material-kit-react/views/mypets.jsx";
 
@@ -57,9 +57,13 @@ class MyPets extends Component {
 
   onSubmit = () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    database.writePetData(currentUser.uid, this.state.name, this.state.age, 
-      this.state.gender, this.state.type, this.state.size, this.state.avatarURL).then(() => this.handleClose)
-      .catch(() => alert("Deu merda"))
+    const monName = ["janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro"];
+    const now = new Date();
+
+    const dataCadastro = now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
+
+    database.writePetData(currentUser.uid, this.state.name, this.state.descricao, this.state.age, this.state.gender, this.state.type, this.state.size, this.state.avatarURL, dataCadastro)
+    .then(() => this.handleClose())
   }
 
   handleChange = event => {
@@ -79,19 +83,24 @@ class MyPets extends Component {
   handleUploadError = (error) => {
     this.setState({isUploading: false});
     console.error(error);
-    alert(error)
   }
 
   handleUploadSuccess = (filename) => {
     this.setState({avatar: filename, progress: 100, isUploading: false});
     firebase.storage().ref('petImages').child(filename).getDownloadURL().then(url => {
       this.setState({avatarURL: url})
-      alert(url)
     }).catch(url => alert("catch"));
   };
 
   render() {
     const { classes, ...rest } = this.props;
+    const isValid = this.state.avatarURL === "" ||
+                    this.state.name === "" ||
+                    this.state.descricao === "" ||
+                    this.state.age === "" ||
+                    this.state.gender === "" ||
+                    this.state.size === "" ||
+                    this.state.type === "";
     return (
       <div className={classes.root}>
         <Header
@@ -122,18 +131,16 @@ class MyPets extends Component {
               Informe os dados do novo pet
             </DialogContentText>
             <TextField onChange={this.handleChangeName('name')} value={this.state.name} name="name" margin="dense" id="name" label="Nome do Pet" type="text" className={classes.formControl}/>
-            <CustomInput
-              labelText="Descrição do pet"
-              id="descricao"
+            <TextField
+              id="multiline-static"
+              name="descricao"
+              label="Descrição"
               onChange={this.handleChangeName('descricao')}
-              value={this.state.descricao}
-              formControlProps={{
-                className: classes.formControl
-              }}
-              inputProps={{
-                multiline: true,
-                rows: 5
-              }}
+              multiline
+              rows="4"
+              defaultValue={this.state.descricao}
+              className={classes.formControl}
+              margin="normal"
             />
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Idade</InputLabel>
@@ -211,12 +218,15 @@ class MyPets extends Component {
               onUploadSuccess={this.handleUploadSuccess}
               onProgress={this.handleProgress}
             />
+            {this.state.isUploading &&
+              <CircularProgress/>
+            }
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancelar
             </Button>
-            <Button onClick={this.onSubmit} color="primary">
+            <Button disabled={isValid} onClick={this.onSubmit} color="primary">
               Cadastrar
             </Button>
           </DialogActions>

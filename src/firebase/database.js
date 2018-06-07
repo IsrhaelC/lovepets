@@ -14,8 +14,10 @@ export const writeUserData = (userId, nickname, name, email, nascimento, enderec
     hasShelter: hasShelter
 });
 
-export const writePetData = (shelterUid, name, descricao, age, gender, type, size, avatarURL) =>
-  database.ref('pets/' + avatarURL).set({
+const petUid = Math.floor(Math.random() * 1000) + 1;
+
+export const writePetData = (shelterUid, name, descricao, age, gender, type, size, avatarURL, dataCadastro) =>
+  database.ref('pets/' + petUid).set({
     shelterUid: shelterUid,
     name: name,
     descricao: descricao,
@@ -23,7 +25,8 @@ export const writePetData = (shelterUid, name, descricao, age, gender, type, siz
     gender: gender,
     type: type,
     size: size,
-    avatarURL: avatarURL
+    imageURL: avatarURL,
+    dataCadastro: dataCadastro
 });
 
 export const updateUserData = (updates) =>
