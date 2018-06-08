@@ -30,8 +30,9 @@ import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 import mypets from "assets/jss/material-kit-react/views/mypets.jsx";
 
@@ -52,7 +53,8 @@ class MyPets extends Component {
     isUploading: false,
     progress: 0,
     avatarURL: '',
-    myPets: []
+    myPets: [],
+    currentShelter: JSON.parse(localStorage.getItem('shelter'))
   };
 
   componentWillMount () {
@@ -86,13 +88,13 @@ class MyPets extends Component {
 
   onSubmit = () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const currentShelter = JSON.parse(localStorage.getItem('shelter'));
+      
     const monName = ["janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro"];
     const now = new Date();
 
     const dataCadastro = now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
 
-    database.writePetData(currentUser.uid, currentShelter.name, this.state.name, this.state.descricao,
+    database.writePetData(currentUser.uid, this.state.currentShelter.name, this.state.name, this.state.descricao,
       this.state.age, this.state.gender, this.state.type, this.state.size, this.state.avatarURL, dataCadastro, this.state.shortDesc)
     .then(() => this.handleClose())
   }
@@ -308,12 +310,21 @@ class MyPets extends Component {
                       </Typography>
                     </CardContent>
                     <CardActions className={classes.actions} disableActionSpacing>
-                      <IconButton aria-label="Add to favorites">
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton aria-label="Share">
-                        <ShareIcon />
-                      </IconButton>
+                      <Tooltip id="tooltip-fab" title="Editar Informações">
+                        <IconButton aria-label="Editar Informações" onClick={() => alert(result.name)}>
+                          <Edit />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip id="tooltip-fab" title="Deletar Pet">
+                        <IconButton aria-label="Deletar Pet">
+                          <Delete />
+                        </IconButton>
+                        </Tooltip>
+                      <Tooltip id="tooltip-fab" title="Marcar como Adotado">
+                        <IconButton aria-label="Marcar como Adotado">
+                          <CheckCircle />
+                        </IconButton>
+                      </Tooltip>
                     </CardActions>
                   </Card>
                 </GridItem>

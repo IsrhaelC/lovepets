@@ -13,6 +13,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
+import { database } from '../../firebase';
 
 import Search from "./Search/Search.jsx"
 import Result from "./Result/Result.jsx"
@@ -23,6 +24,40 @@ import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.js
 const dashboardRoutes = [];
 
 class SearchPage extends React.Component {
+
+  constructor () {
+    super()
+
+    this.state = {
+      allPets: [],
+      searchPets: [],
+      search: {}
+    }
+  }
+
+  componentDidMount () {
+    var childs = [];
+    database.allPets().then((snapshot) => {
+      snapshot.forEach(function(child) {
+        childs.push(child.val());
+      })
+      this.setState({
+        allPets: childs
+      })
+    });
+  }
+
+  handleSearch = (obj) => {
+    this.setState({
+      search: obj
+    })
+    console.log(this.state.search)
+  }
+
+  filterPets = () => {
+    
+  }
+
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -50,8 +85,8 @@ class SearchPage extends React.Component {
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <Search />
-            <Result />
+            <Search handleSearch={this.handleSearch}/>
+            <Result result={this.state.allPets}/>
           </div>
         </div>
         <Footer />

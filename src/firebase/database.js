@@ -18,6 +18,7 @@ const petUid = Math.floor(Math.random() * 1000) + 1;
 
 export const writePetData = (shelterUid, shelterName, name, descricao, age, gender, type, size, avatarURL, dataCadastro, shortDesc) =>
   database.ref('pets/' + petUid).set({
+    petUid: petUid,
     shelterUid: shelterUid,
     shelterName: shelterName,
     name: name,
@@ -28,7 +29,9 @@ export const writePetData = (shelterUid, shelterName, name, descricao, age, gend
     size: size,
     imageURL: avatarURL,
     dataCadastro: dataCadastro,
-    shortDesc: shortDesc
+    shortDesc: shortDesc,
+    adotado: "false",
+    visible: "false"
 });
 
 export const updateUserData = (updates) =>

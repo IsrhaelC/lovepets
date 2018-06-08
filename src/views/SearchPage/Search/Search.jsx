@@ -41,6 +41,16 @@ class Search extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  search = () => {
+    var searchParameters = {
+      age: this.state.age,
+      gender: this.state.gender,
+      type: this.state.type,
+      size: this.state.type
+    }
+    this.props.handleSearch(searchParameters);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -122,7 +132,7 @@ class Search extends React.Component {
                   </form>
                 </CardBody>
                 <CardFooter className={classes.cardFooter}>
-                  <Button color="primary" size="lg">
+                  <Button color="primary" size="lg" onClick={this.search}>
                     Buscar
                   </Button>
                 </CardFooter>
