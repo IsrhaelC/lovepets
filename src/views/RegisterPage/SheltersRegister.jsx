@@ -16,6 +16,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 import TextField from 'material-ui/TextField';
+import PlacesAutocomplete   from 'react-places-autocomplete'
 
 import registerStyle from "assets/jss/material-kit-react/views/registerPage.jsx";
 
@@ -30,10 +31,6 @@ class SheltersRegister extends React.Component {
       name: "",
       age: "",
       endereco: "",
-      number: "",
-      bairro: "",
-      cidade: "",
-      estado: "",
       qtdPetsFind: "",
       qtdPetsAdopters: "",
       qtdPetsCurrent: "",
@@ -57,6 +54,14 @@ class SheltersRegister extends React.Component {
     });
   };
 
+  handleChangeAddress = (endereco) => {
+    this.setState({ endereco })
+  }
+
+  handleSelect = (address) => {
+    this.setState({ endereco: address })
+  }
+
   onSubmit = () => {
     const {
       history,
@@ -66,8 +71,7 @@ class SheltersRegister extends React.Component {
     var updates = {}
     updates['/users/' + currentUser + '/hasShelter'] = "true";
 
-    database.writeShelterData(currentUser, this.state.name, this.state.age, this.state.endereco, this.state.number,
-                              this.state.bairro, this.state.cidade, this.state.estado, this.state.qtdPetsFind,
+    database.writeShelterData(currentUser, this.state.name, this.state.age, this.state.endereco, this.state.qtdPetsFind,
                             this.state.qtdPetsAdopters, this.state.qtdPetsCurrent, this.state.qtdColaboradores)
     .then(shelterData => {
       database.updateUserData(updates)
@@ -114,30 +118,40 @@ class SheltersRegister extends React.Component {
                           onChange={this.handleChange('age')} margin="normal" type="number" helperText="Em Anos"
                           />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={7}>
-                        <TextField id="endereco" label="Endereço" className={classes.textField} value={this.state.endereco}
-                          onChange={this.handleChange('endereco')} margin="normal" helperText="Rua, Avenida, Travessa..."
-                          />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={3}>
-                        <TextField id="number" label="Número" className={classes.textField} value={this.state.number}
-                          onChange={this.handleChange('number')} margin="normal" type="number"
-                          />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField id="bairro" label="Bairro" className={classes.textField} value={this.state.bairro}
-                          onChange={this.handleChange('bairro')} margin="normal"
-                          />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField id="cidade" label="Cidade" className={classes.textField} value={this.state.cidade}
-                          onChange={this.handleChange('cidade')} margin="normal"
-                          />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={3}>
-                        <TextField id="estado" label="Estado" className={classes.textField} value={this.state.estado}
-                          onChange={this.handleChange('estado')} margin="normal"
-                          />
+                      <GridItem xs={12} sm={12} md={10}>
+                        <PlacesAutocomplete
+                          value={this.state.endereco}
+                          onChange={this.handleChangeAddress}
+                          onSelect={this.handleSelect}
+                        >
+                          {({ getInputProps, suggestions, getSuggestionItemProps }) => (
+                            <div>
+                              <TextField
+                                {...getInputProps({
+                                  className: 'location-search-input'})
+                                } 
+                                id="endereco"
+                                autoComplete="off"
+                                label="Digite o endereço do abrigo"
+                                className={classes.textField}
+                                margin="normal" type="text" />
+                              <div className="autocomplete-dropdown-container">
+                                {suggestions.map(suggestion => {
+                                  const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                                  // inline style for demonstration purpose
+                                  const style = suggestion.active
+                                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                  return (
+                                    <div {...getSuggestionItemProps(suggestion, { className, style })}>
+                                      <span>{suggestion.description}</span>
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          )}
+                        </PlacesAutocomplete>
                       </GridItem>
                       <GridItem xs={12} sm={12} md={3}>
                         <TextField id="qtdPetsFind" label="Média de animais resgatados por mês" className={classes.textField} value={this.state.qtdPetsFind}

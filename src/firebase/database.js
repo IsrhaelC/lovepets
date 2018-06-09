@@ -1,16 +1,12 @@
 import { database } from './firebase';
 
-export const writeUserData = (userId, nickname, name, email, nascimento, endereco, number, bairro, cidade, estado, hasShelter) =>
+export const writeUserData = (userId, nickname, name, email, nascimento, endereco, hasShelter) =>
   database.ref('users/' + userId).set({
     name: name,
     nickname: nickname,
     email: email,
     nascimento: nascimento,
-    endereco: endereco, 
-    number: number, 
-    bairro: bairro, 
-    cidade: cidade, 
-    estado: estado,
+    endereco: endereco,
     hasShelter: hasShelter
 });
 
@@ -37,15 +33,11 @@ export const writePetData = (shelterUid, shelterName, name, descricao, age, gend
 export const updateUserData = (updates) =>
   database.ref().update(updates);
 
-export const writeShelterData = (userId, name, age, endereco, number, bairro, cidade, estado, qtdPetsFind, qtdPetsAdopters, qtdPetsCurrent, qtdColaboradores) =>
+export const writeShelterData = (userId, name, age, endereco, qtdPetsFind, qtdPetsAdopters, qtdPetsCurrent, qtdColaboradores) =>
   database.ref('shelters/' + userId).set({
     name: name,
     age: age,
-    endereco: endereco, 
-    number: number, 
-    bairro: bairro, 
-    cidade: cidade, 
-    estado: estado, 
+    endereco: endereco,
     qtdPetsFind: qtdPetsFind,
     qtdPetsAdopters: qtdPetsAdopters,
     qtdPetsCurrent: qtdPetsCurrent,
