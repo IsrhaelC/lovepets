@@ -11,6 +11,8 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import Report from '@material-ui/icons/Report';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 import resultStyle from "assets/jss/material-kit-react/views/resultStyle.jsx";
@@ -46,12 +48,21 @@ class Result extends React.Component {
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
-                  <IconButton aria-label="Add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <IconButton aria-label="Share">
-                    <ShareIcon />
-                  </IconButton>
+                  <Tooltip id="tooltip-fab" title="Favoritar Pet">
+                    <IconButton aria-label="Add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip id="tooltip-fab" title="Compartilhar Pet">
+                    <IconButton aria-label="Share">
+                      <ShareIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip id="tooltip-fab" title="Reportar um problema com essa postagem">
+                    <IconButton aria-label="Share">
+                      <Report />
+                    </IconButton>
+                  </Tooltip>
                 </CardActions>
               </Card>
             </GridItem>

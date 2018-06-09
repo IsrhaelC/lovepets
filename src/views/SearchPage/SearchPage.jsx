@@ -48,14 +48,24 @@ class SearchPage extends React.Component {
   }
 
   handleSearch = (obj) => {
-    this.setState({
-      search: obj
+    var tempPets = [];
+    // eslint-disable-next-line
+    this.state.allPets.map((pet, index) => {
+      if(this.isValid(pet, obj)){
+        tempPets.push(pet)
+      }
     })
-    console.log(this.state.search)
+    this.setState({
+      searchPets: tempPets
+    })
   }
 
-  filterPets = () => {
-    
+  isValid (pet, obj) {
+    if((pet.age === obj.age || obj.age === "") && (pet.gender === obj.gender || obj.gender === "") &&
+        (pet.size === obj.size || obj.size === "") && (pet.type === obj.type || obj.type === "")) {
+          return true;
+    }
+    return false
   }
 
   render() {
@@ -86,7 +96,9 @@ class SearchPage extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
             <Search handleSearch={this.handleSearch}/>
-            <Result result={this.state.allPets}/>
+            {this.state.searchPets &&
+              <Result result={this.state.searchPets}/>
+            }
           </div>
         </div>
         <Footer />

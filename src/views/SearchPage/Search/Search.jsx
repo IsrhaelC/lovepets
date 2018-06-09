@@ -46,7 +46,7 @@ class Search extends React.Component {
       age: this.state.age,
       gender: this.state.gender,
       type: this.state.type,
-      size: this.state.type
+      size: this.state.size
     }
     this.props.handleSearch(searchParameters);
   }
@@ -70,13 +70,11 @@ class Search extends React.Component {
                           name: 'age',  
                           id: 'age-simple',
                         }}>
-                        <MenuItem value="">
-                          <em>Selecionar</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Filhote</MenuItem>
-                        <MenuItem value={20}>Jovem</MenuItem>
-                        <MenuItem value={30}>Adulto</MenuItem>
-                        <MenuItem value={30}>Idoso</MenuItem>
+                        <MenuItem value=""><em>Selecionar</em></MenuItem>
+                        <MenuItem value={"filhote"}>Filhote</MenuItem>
+                        <MenuItem value={"jovem"}>Jovem</MenuItem>
+                        <MenuItem value={"adulto"}>Adulto</MenuItem>
+                        <MenuItem value={"idoso"}>Idoso</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl className={classes.formControl}>
@@ -88,12 +86,10 @@ class Search extends React.Component {
                           name: 'type',  
                           id: 'type-simple',
                         }}>
-                        <MenuItem value="">
-                          <em>Selecionar</em>
-                        </MenuItem>
-                        <MenuItem value={20}>Cachorro</MenuItem>
-                        <MenuItem value={10}>Gato</MenuItem>
-                        <MenuItem value={30}>Outros</MenuItem>
+                        <MenuItem value=""><em>Selecionar</em></MenuItem>
+                        <MenuItem value={"cachoro"}>Cachorro</MenuItem>
+                        <MenuItem value={"gato"}>Gato</MenuItem>
+                        <MenuItem value={"outros"}>Outros</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl className={classes.formControl}>
@@ -105,12 +101,10 @@ class Search extends React.Component {
                           name: 'size',  
                           id: 'size-simple',
                         }}>
-                        <MenuItem value="">
-                          <em>Selecionar</em>
-                        </MenuItem>
-                        <MenuItem value={20}>Pequeno Porte</MenuItem>
-                        <MenuItem value={20}>Médio Porte</MenuItem>
-                        <MenuItem value={20}>Grande Porte</MenuItem>
+                        <MenuItem value=""><em>Selecionar</em></MenuItem>
+                        <MenuItem value={"pequeno"}>Pequeno Porte</MenuItem>
+                        <MenuItem value={"medio"}>Médio Porte</MenuItem>
+                        <MenuItem value={"grande"}>Grande Porte</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl className={classes.formControl}>
@@ -122,11 +116,9 @@ class Search extends React.Component {
                           name: 'gender',  
                           id: 'gender-simple',
                         }}>
-                        <MenuItem value="">
-                          <em>Selecionar</em>
-                        </MenuItem>
-                        <MenuItem value={20}>Macho</MenuItem>
-                        <MenuItem value={20}>Fêmea</MenuItem>
+                        <MenuItem value=""><em>Selecionar</em></MenuItem>
+                        <MenuItem value={"macho"}>Macho</MenuItem>
+                        <MenuItem value={"femea"}>Fêmea</MenuItem>
                       </Select>
                     </FormControl>
                   </form>

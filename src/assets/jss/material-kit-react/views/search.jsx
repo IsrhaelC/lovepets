@@ -53,7 +53,8 @@ const searchStyle = {
     border: "0",
     borderRadius: "6px",
     justifyContent: "center !important",
-    color: "white"
+    color: "white",
+    flexDirection: 'column',
   },
   socialLine: {
     marginTop: "1rem",
@@ -74,7 +75,6 @@ const searchStyle = {
   selectEmpty: {
     marginTop: 1 * 2,
   }
-
 };
 
 export default searchStyle;

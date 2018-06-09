@@ -88,10 +88,8 @@ class MyPets extends Component {
 
   onSubmit = () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      
     const monName = ["janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro"];
     const now = new Date();
-
     const dataCadastro = now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
 
     database.writePetData(currentUser.uid, this.state.currentShelter.name, this.state.name, this.state.descricao,
@@ -219,9 +217,7 @@ class MyPets extends Component {
                   name: 'type',  
                   id: 'type-simple',
                 }}>
-                <MenuItem value="">
-                  <em>Selecionar</em>
-                </MenuItem>
+                <MenuItem value=""><em>Selecionar</em></MenuItem>
                 <MenuItem value={"cachoro"}>Cachorro</MenuItem>
                 <MenuItem value={"gato"}>Gato</MenuItem>
                 <MenuItem value={"outros"}>Outros</MenuItem>
@@ -236,9 +232,7 @@ class MyPets extends Component {
                   name: 'size',  
                   id: 'size-simple',
                 }}>
-                <MenuItem value="">
-                  <em>Selecionar</em>
-                </MenuItem>
+                <MenuItem value=""><em>Selecionar</em></MenuItem>
                 <MenuItem value={"pequeno"}>Pequeno Porte</MenuItem>
                 <MenuItem value={"medio"}>Médio Porte</MenuItem>
                 <MenuItem value={"grande"}>Grande Porte</MenuItem>
@@ -253,9 +247,7 @@ class MyPets extends Component {
                   name: 'gender',  
                   id: 'gender-simple',
                 }}>
-                <MenuItem value="">
-                  <em>Selecionar</em>
-                </MenuItem>
+                <MenuItem value=""><em>Selecionar</em></MenuItem>
                 <MenuItem value={"macho"}>Macho</MenuItem>
                 <MenuItem value={"femea"}>Fêmea</MenuItem>
               </Select>
