@@ -87,7 +87,7 @@ class Search extends React.Component {
                           id: 'type-simple',
                         }}>
                         <MenuItem value=""><em>Selecionar</em></MenuItem>
-                        <MenuItem value={"cachoro"}>Cachorro</MenuItem>
+                        <MenuItem value={"cachorro"}>Cachorro</MenuItem>
                         <MenuItem value={"gato"}>Gato</MenuItem>
                         <MenuItem value={"outros"}>Outros</MenuItem>
                       </Select>

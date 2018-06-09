@@ -29,6 +29,15 @@ const resultStyle = {
   },
   cardGrid : {
     marginBottom: "15px",
+  },
+  dialogContainer: {
+    minWidth: "60vw"
+  },
+  chip: {
+    margin: "5px",
+  },
+  rightIcon: {
+    marginLeft: "2px"
   }
 
 };

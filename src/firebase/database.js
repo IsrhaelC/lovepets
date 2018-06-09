@@ -10,6 +10,12 @@ export const writeUserData = (userId, nickname, name, email, nascimento, enderec
     hasShelter: hasShelter
 });
 
+export const writeUserDataUpdate = (userId, name, endereco) =>
+  database.ref('users/' + userId).set({
+    name: name,
+    endereco: endereco
+});
+
 const petUid = Math.floor(Math.random() * 1000) + 1;
 
 export const writePetData = (shelterUid, shelterName, name, descricao, age, gender, type, size, avatarURL, dataCadastro, shortDesc) =>
