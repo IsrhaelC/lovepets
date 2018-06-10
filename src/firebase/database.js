@@ -16,6 +16,15 @@ export const writeUserDataUpdate = (userId, name, endereco) =>
     endereco: endereco
 });
 
+export const sendMessage = (userUid, shelterUid, petUid, message, date) =>
+  database.ref('messages/' + userUid + "/" + shelterUid).set({
+    userUid: userUid,
+    shelterUid: shelterUid,
+    petUid: petUid,
+    message: message,
+    date: date
+});
+
 const petUid = Math.floor(Math.random() * 1000) + 1;
 
 export const writePetData = (shelterUid, shelterName, name, descricao, age, gender, type, size, avatarURL, dataCadastro, shortDesc) =>

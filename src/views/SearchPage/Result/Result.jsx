@@ -21,6 +21,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import Icon from '@material-ui/core/Icon';
+import TextField from '@material-ui/core/TextField';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import { database } from '../../../firebase';
 
 import resultStyle from "assets/jss/material-kit-react/views/resultStyle.jsx";
 
@@ -30,7 +33,9 @@ class Result extends React.Component {
     super()
     this.state = {
       petDetail: {},
-      open: false
+      open: false,
+      openMensage: false,
+      message: ""
     }
   }
 
@@ -101,6 +106,34 @@ class Result extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  handleClickOpenMensage = () => {
+    this.setState({ openMensage: true });
+    this.setState({ open: false });
+  };
+
+  handleCloseMensage = () => {
+    this.setState({ openMensage: false });
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleMessage = () => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentShelter = JSON.parse(localStorage.getItem('shelter'));
+    const monName = ["janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro"];
+    const now = new Date();
+    const dataMessage = now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
+    console.log(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, dataMessage)
+    database.sendMessage(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, dataMessage).then(result => {
+      console.log(result);
+    }).catch(error => {
+      console.log(error)
+    })
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -198,9 +231,40 @@ class Result extends React.Component {
             <Button onClick={this.handleClose} color="secondary">
               Cancelar
             </Button>
-            <Button variant="contained" color="primary">
+            <Button variant="fab" color="primary" onClick={this.handleClickOpenMensage}>
               Mensagem
               <Icon>send</Icon>
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.openMensage}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">{"Abrigo " + this.state.petDetail.shelterName}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Envie uma mensagem sobre <strong>{this.state.petDetail.name}</strong>
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              value={this.state.message}
+              id="message"
+              name="message"
+              label="Sua mensagem..."
+              type="text"
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseMensage} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={this.handleMessage} color="primary">
+              Enviar
             </Button>
           </DialogActions>
         </Dialog>
