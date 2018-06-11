@@ -59,7 +59,7 @@ class Result extends React.Component {
     }
     switch (pet.type) {
       case "cachorro":
-        pet.type = "Cachoroo"
+        pet.type = "Cachorro"
         break;
       case "gato":
         pet.type = "Gato"
@@ -123,12 +123,10 @@ class Result extends React.Component {
   handleMessage = () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const currentShelter = JSON.parse(localStorage.getItem('shelter'));
-    const monName = ["janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro"];
     const now = new Date();
-    const dataMessage = now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
-    console.log(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, dataMessage)
-    database.sendMessage(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, dataMessage).then(result => {
-      console.log(result);
+    database.sendMessage(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, now.toLocaleString(), false).then(result => {
+      database.getMessages();
+      this.handleCloseMensage();
     }).catch(error => {
       console.log(error)
     })
@@ -231,7 +229,7 @@ class Result extends React.Component {
             <Button onClick={this.handleClose} color="secondary">
               Cancelar
             </Button>
-            <Button variant="fab" color="primary" onClick={this.handleClickOpenMensage}>
+            <Button variant="raised" color="primary" onClick={this.handleClickOpenMensage}>
               Mensagem
               <Icon>send</Icon>
             </Button>

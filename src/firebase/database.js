@@ -16,14 +16,27 @@ export const writeUserDataUpdate = (userId, name, endereco) =>
     endereco: endereco
 });
 
-export const sendMessage = (userUid, shelterUid, petUid, message, date) =>
-  database.ref('messages/' + userUid + "/" + shelterUid).set({
-    userUid: userUid,
-    shelterUid: shelterUid,
+const msgUid = Math.floor(Math.random() * 1000) + 1;
+
+export const sendMessage = (userUid, shelterUid, petUid, message, date, isRead) =>
+  database.ref('messages/' + msgUid).set({
+    to: userUid,
+    from: shelterUid,
     petUid: petUid,
     message: message,
-    date: date
+    date: date,
+    isRead: isRead
 });
+
+export const getMessages = (uid) => {
+  return database.ref('/messages/').once('value').then((snapshot) => {
+    var messages = [];
+    snapshot.forEach(function(child) {
+      messages.push(child.val());
+    })
+    localStorage.setItem('messages', JSON.stringify(messages));
+  });
+}
 
 const petUid = Math.floor(Math.random() * 1000) + 1;
 
@@ -50,6 +63,7 @@ export const updateUserData = (updates) =>
 
 export const writeShelterData = (userId, name, age, endereco, qtdPetsFind, qtdPetsAdopters, qtdPetsCurrent, qtdColaboradores) =>
   database.ref('shelters/' + userId).set({
+    uid: userId,
     name: name,
     age: age,
     endereco: endereco,
@@ -83,6 +97,7 @@ export const userLogged = (uid) => {
 export const shelter = (uid) => {
   return database.ref('/shelters/' + uid).once('value').then((snapshot) => {
     var shelter = {
+      uid: snapshot.val().uid,
       age: snapshot.val().age,
       bairro: snapshot.val().bairro,
       cidade:snapshot.val().cidade,

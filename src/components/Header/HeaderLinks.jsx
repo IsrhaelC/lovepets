@@ -9,6 +9,7 @@ import List from "material-ui/List";
 import ListItem from "material-ui/List/ListItem";
 import Tooltip from "material-ui/Tooltip";
 import Divider from 'material-ui/Divider';
+import Badge from '@material-ui/core/Badge';
 
 // @material-ui/icons
 import { Pets, SupervisorAccount, Favorite, Email, PersonAdd, AccountCircle, Person } from "@material-ui/icons";
@@ -25,6 +26,8 @@ function HeaderLinks({ ...props }) {
   const { history, classes } = props;
   var userLogged = localStorage.getItem('userLogged') ? localStorage.getItem('userLogged') : "false";
   var userHasShelter = "true";
+  var messages = JSON.parse(localStorage.getItem('messages'));
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -148,7 +151,9 @@ function HeaderLinks({ ...props }) {
                   Colaboradores
                 </Link>,
                 <Link to="/" className={classes.dropdownLink}>
-                  Mensagens
+                    Mensagens
+                  <Badge className={classes.badgeMargin} badgeContent={4} color="primary">
+                  </Badge>
                 </Link>,
                 <Divider />,
                 <Link to="/" className={classes.dropdownLink} onClick={() => { auth.doSignOut(); localStorage.clear();}}>

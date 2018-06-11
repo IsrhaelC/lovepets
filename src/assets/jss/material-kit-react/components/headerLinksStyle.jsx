@@ -143,6 +143,10 @@ const headerLinksStyle = theme => ({
       "& > span:first-child": {
         justifyContent: "flex-start"
       }
+    },
+    badgeMargin: {
+      margin: "10px",
+      paddingLeft: "5px"
     }
   }
 });
