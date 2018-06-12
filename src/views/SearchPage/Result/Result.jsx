@@ -124,11 +124,13 @@ class Result extends React.Component {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const currentShelter = JSON.parse(localStorage.getItem('shelter'));
     const now = new Date();
-    database.sendMessage(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, now.toLocaleString(), false).then(result => {
-      database.getMessages();
-      this.handleCloseMensage();
-    }).catch(error => {
-      console.log(error)
+    database.getUser(currentUser.uid).then(snapshot => {
+      database.sendMessage(currentUser.uid, currentShelter.uid, this.state.petDetail.petUid, this.state.message, now.toLocaleString(), false, snapshot.val().name).then(result => {
+        database.getMessages();
+        this.handleCloseMensage();
+      }).catch(error => {
+        console.log(error)
+      })
     })
 
   }

@@ -18,14 +18,15 @@ export const writeUserDataUpdate = (userId, name, endereco) =>
 
 const msgUid = Math.floor(Math.random() * 1000) + 1;
 
-export const sendMessage = (userUid, shelterUid, petUid, message, date, isRead) =>
+export const sendMessage = (userUid, shelterUid, petUid, message, date, isRead, nameFrom) =>
   database.ref('messages/' + msgUid).set({
     to: userUid,
     from: shelterUid,
     petUid: petUid,
     message: message,
     date: date,
-    isRead: isRead
+    isRead: isRead,
+    nameFrom: nameFrom
 });
 
 export const getMessages = (uid) => {
@@ -92,6 +93,10 @@ export const userLogged = (uid) => {
     }
     localStorage.setItem('currentUser', JSON.stringify(userLoggedObj));
   });
+}
+
+export const getUser = (uid) => {
+  return database.ref('/users/' + uid).once('value');
 }
 
 export const shelter = (uid) => {
