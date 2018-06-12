@@ -146,7 +146,8 @@ const headerLinksStyle = theme => ({
     },
     badgeMargin: {
       margin: "10px",
-      paddingLeft: "5px"
+      paddingLeft: "45px",
+      backgroundColor: "black !important"
     }
   }
 });

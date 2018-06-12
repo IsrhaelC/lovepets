@@ -22,11 +22,26 @@ import IconButton from "components/CustomButtons/IconButton.jsx";
 import headerLinksStyle from "assets/jss/material-kit-react/components/headerLinksStyle.jsx";
 import { auth } from '../../firebase';
 
+function countMsgs(messages) {
+  var currentUser = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')) : "";
+  var currentShelter = JSON.parse(localStorage.getItem('shelter')) ? JSON.parse(localStorage.getItem('shelter')) : "";
+  var tempMessages = [];
+  for(var i in messages) {
+    if(messages[i].to === currentUser.uid || messages[i].to === currentShelter.uid){
+      if(messages[i].isRead === false){
+        tempMessages.push(messages[i])
+      }
+    }
+  }
+  return tempMessages;
+}
+
 function HeaderLinks({ ...props }) {
   const { history, classes } = props;
   var userLogged = localStorage.getItem('userLogged') ? localStorage.getItem('userLogged') : "false";
   var userHasShelter = "true";
   var messages = JSON.parse(localStorage.getItem('messages'));
+  var noReadMsgs = countMsgs(messages);
 
   return (
     <List className={classes.list}>
@@ -151,8 +166,8 @@ function HeaderLinks({ ...props }) {
                   Colaboradores
                 </Link>,
                 <Link to="/" className={classes.dropdownLink}>
+                  <Badge className={classes.badgeMargin} badgeContent={noReadMsgs.length} color="primary">
                     Mensagens
-                  <Badge className={classes.badgeMargin} badgeContent={4} color="primary">
                   </Badge>
                 </Link>,
                 <Divider />,
