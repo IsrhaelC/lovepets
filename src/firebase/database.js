@@ -26,7 +26,8 @@ export const sendMessage = (userUid, shelterUid, petUid, message, date, isRead, 
     message: message,
     date: date,
     isRead: isRead,
-    nameFrom: nameFrom
+    nameFrom: nameFrom,
+    uid: msgUid
 });
 
 export const getMessages = (uid) => {

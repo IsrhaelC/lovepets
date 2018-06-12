@@ -18,9 +18,16 @@ import Avatar from '@material-ui/core/Avatar';
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import NotificationImportant from "@material-ui/icons/NotificationsActive"
-import Delete from "@material-ui/icons/Delete";
+import Delete from "@material-ui/icons/Reply";
 import Tooltip from '@material-ui/core/Tooltip';
 import { database } from '../../firebase';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 import messages from "assets/jss/material-kit-react/views/messages.jsx";
 
@@ -31,7 +38,14 @@ class Messages extends React.Component {
   constructor () {
     super()
     this.state = {
-      myMsgs: []
+      myMsgs: [],
+      open: false,
+      message: {
+        from: "",
+        date: "",
+        messageFrom: ""
+      },
+      myMsg: ""
     }
   }
 
@@ -44,6 +58,43 @@ class Messages extends React.Component {
       myMsgs: unSortMsgs
     })
   }
+
+  updateMsgs = () => {
+    var unSortMsgs = JSON.parse(localStorage.getItem('messages'));
+    unSortMsgs.sort(function(a, b) {
+      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+    })
+    this.setState({
+      myMsgs: unSortMsgs
+    })
+  }
+
+  handleClickOpen = (idFrom, date, msgUid) => {
+    var msgTemp = this.state.myMsgs
+    for(var i in msgTemp) {
+      if(idFrom === msgTemp[i].from && date === msgTemp[i].date){
+        this.setState({
+          message:{
+            messageFrom:  msgTemp[i].message,
+            date: msgTemp[i].date,
+            from: msgTemp[i].nameFrom
+          }
+        })
+      }
+    }
+    var updates = {}
+    updates['/messages/' + msgUid + '/isRead'] = true;
+    database.updateUserData(updates).then(() => this.setState({open: true})).catch(error => console.log(error))
+    database.getMessages();
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
   render() {
     const { classes, ...rest } = this.props;
@@ -67,7 +118,7 @@ class Messages extends React.Component {
               <div className={classes.container}>
                 <List className={classes.list}>
                   {this.state.myMsgs.map((value, key) => (
-                    <ListItem key={key} dense button className={classes.listItem}>
+                    <ListItem key={key} dense button className={classes.listItem} onClick={() => this.handleClickOpen(value.from, value.date, value.uid)}>
                       <Avatar>
                         I
                       </Avatar>
@@ -92,6 +143,43 @@ class Messages extends React.Component {
             </div>
           </GridItem>
         </GridContainer>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">{"De: " + this.state.message.from}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <strong>{"Mensagem: " }</strong>
+            </DialogContentText>
+            <DialogContentText>
+              {this.state.message.messageFrom}
+            </DialogContentText>
+            <DialogContentText>
+              <i>{this.state.message.date}</i>
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              value={this.state.myMsg}
+              id="message"
+              name="message"
+              label="Sua mensagem..."
+              type="text"
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={this.handleClose} color="primary">
+              Responder
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Footer />
       </div>
     );
