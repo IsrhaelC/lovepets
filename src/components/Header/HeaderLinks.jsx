@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import withStyles from "material-ui/styles/withStyles";
 import List from "material-ui/List";
 import ListItem from "material-ui/List/ListItem";
-import Tooltip from "material-ui/Tooltip";
 import Divider from 'material-ui/Divider';
 import Badge from '@material-ui/core/Badge';
 
@@ -17,7 +16,6 @@ import { Pets, SupervisorAccount, Favorite, Email, PersonAdd, AccountCircle, Per
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import IconButton from "components/CustomButtons/IconButton.jsx";
 
 import headerLinksStyle from "assets/jss/material-kit-react/components/headerLinksStyle.jsx";
 import { auth } from '../../firebase';
@@ -39,7 +37,7 @@ function countMsgs(messages) {
 function HeaderLinks({ ...props }) {
   const { history, classes } = props;
   var userLogged = localStorage.getItem('userLogged') ? localStorage.getItem('userLogged') : "false";
-  var userHasShelter = "true";
+  var userHasShelter = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')).hasShelter : "false";
   var messages = JSON.parse(localStorage.getItem('messages'));
   var noReadMsgs = countMsgs(messages);
 

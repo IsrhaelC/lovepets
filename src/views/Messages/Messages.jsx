@@ -84,7 +84,7 @@ class Messages extends React.Component {
     }
     var updates = {}
     updates['/messages/' + msgUid + '/isRead'] = true;
-    database.updateUserData(updates).then(() => this.setState({open: true})).catch(error => console.log(error))
+    database.updateData(updates).then(() => this.setState({open: true})).catch(error => console.log(error))
     database.getMessages();
   };
 

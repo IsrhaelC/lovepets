@@ -81,7 +81,7 @@ class AdoptersRegister extends React.Component {
     var updates = {}
     updates['/users/' + this.state.userUid + '/name'] = this.state.name;
     updates['/users/' + this.state.userUid + '/endereco'] = this.state.endereco;
-    database.updateUserData(updates).then(() => history.push("/")).catch(error => console.log(error))
+    database.updateData(updates).then(() => history.push("/")).catch(error => console.log(error))
   }
 
   render() {

@@ -2,7 +2,9 @@ import React from "react";
 // material-ui components
 import withStyles from "material-ui/styles/withStyles";
 import classNames from "classnames";
+import firebase from 'firebase';
 import { auth, database } from '../../firebase';
+import FileUploader from 'react-firebase-file-uploader';
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -37,6 +39,10 @@ class AdoptersRegister extends React.Component {
       endereco: "",
       hasShelter: "false",
       error: null,
+      avatar: '',
+      isUploading: false,
+      progress: 0,
+      avatarURL: '',
      };
   }
 
@@ -63,7 +69,7 @@ class AdoptersRegister extends React.Component {
       .then(authUser => {
         database.writeUserData(authUser.user.uid, this.state.nickname, this.state.name,
                               this.state.email, this.state.nascimento,
-                              this.state.endereco, this.state.hasShelter)
+                              this.state.endereco, this.state.hasShelter, this.state.avatarURL)
         .then(writeUser => {
           history.push("/")
         })
@@ -80,6 +86,22 @@ class AdoptersRegister extends React.Component {
       });
   }
 
+  handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+
+  handleProgress = (progress) => this.setState({progress});
+
+  handleUploadError = (error) => {
+    this.setState({isUploading: false});
+    console.error(error);
+  }
+
+  handleUploadSuccess = (filename) => {
+    this.setState({avatar: filename, progress: 100, isUploading: false});
+    firebase.storage().ref('userImages').child(filename).getDownloadURL().then(url => {
+      this.setState({avatarURL: url})
+    }).catch(url => alert("catch"));
+  };
+
   render() {
 
     const isInvalid =
@@ -89,7 +111,8 @@ class AdoptersRegister extends React.Component {
       this.state.name === '' ||
       this.state.nickname === '' ||
       this.state.nascimento === '' || 
-      this.state.endereco === '' ;
+      this.state.endereco === '' ||
+      this.state.avatarURL === '';
 
     const { classes } = this.props;
     return (
@@ -197,6 +220,18 @@ class AdoptersRegister extends React.Component {
                             </div>
                           )}
                         </PlacesAutocomplete>
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={7}>
+                        <FileUploader
+                          accept="image/*"
+                          name="avatar"
+                          randomizeFilename
+                          storageRef={firebase.storage().ref('userImages')}
+                          onUploadStart={this.handleUploadStart}
+                          onUploadError={this.handleUploadError}
+                          onUploadSuccess={this.handleUploadSuccess}
+                          onProgress={this.handleProgress}
+                        />
                       </GridItem>
                     </form>
                   </CardBody>

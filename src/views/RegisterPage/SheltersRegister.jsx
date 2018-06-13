@@ -69,13 +69,14 @@ class SheltersRegister extends React.Component {
 
     var currentUser = localStorage.getItem('userUid');
     var updates = {}
-    updates['/users/' + currentUser + '/hasShelter'] = "true";
-
+    
     database.writeShelterData(currentUser, this.state.name, this.state.age, this.state.endereco, this.state.qtdPetsFind,
-                            this.state.qtdPetsAdopters, this.state.qtdPetsCurrent, this.state.qtdColaboradores)
-    .then(shelterData => {
-      database.updateUserData(updates)
-      history.push("/");
+      this.state.qtdPetsAdopters, this.state.qtdPetsCurrent, this.state.qtdColaboradores, currentUser)
+      .then(shelterData => {
+        updates['/users/' + currentUser + '/hasShelter'] = "true";
+        updates['/users/' + currentUser + '/shelterUid'] = currentUser;
+        database.updateData(updates)
+        history.push("/");
     }).catch(error => {
       this.setState({
         error: error
