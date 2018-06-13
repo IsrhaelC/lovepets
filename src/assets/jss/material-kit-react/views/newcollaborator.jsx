@@ -16,7 +16,8 @@ const newcollaborator = {
   ...imagesStyle,
   itemGrid: {
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
+    height: "20vh",
   },
   cardTitle,
   smallTitle: {

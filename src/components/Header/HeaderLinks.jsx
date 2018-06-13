@@ -157,13 +157,13 @@ function HeaderLinks({ ...props }) {
                 <Link to="/" className={classes.dropdownLink}>
                   Meu Abrigo
                 </Link>,
-                <Link to="/" className={classes.dropdownLink}>
+                <Link to="/my-pets" className={classes.dropdownLink}>
                   Meus Pets
                 </Link>,
-                <Link to="/" className={classes.dropdownLink}>
+                <Link to="/new-collaborator" className={classes.dropdownLink}>
                   Colaboradores
                 </Link>,
-                <Link to="/" className={classes.dropdownLink}>
+                <Link to="/messages" className={classes.dropdownLink}>
                   <Badge className={classes.badgeMargin} badgeContent={noReadMsgs.length} color="primary">
                     Mensagens
                   </Badge>

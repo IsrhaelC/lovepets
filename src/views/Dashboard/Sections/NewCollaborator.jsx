@@ -20,8 +20,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import newcollaborator from "assets/jss/material-kit-react/views/newcollaborator.jsx";
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import Admin from '@material-ui/icons/Lock';
 
 const dashboardRoutes = [];
 
@@ -34,23 +37,19 @@ class NewCollaborator extends Component {
       userResult: {},
       open: false,
       openAlert: false,
-      collaborators: []
+      collaborators: [],
+      errorMessage: {
+        title: "",
+        msg: "",
+        buttonClose: "",
+        buttonConfirm: ""
+      },
+      removeMemberUid: ""
     }
   }
 
   componentDidMount () {
-    var shelter = JSON.parse(localStorage.getItem('shelter'));
-    var tempColl = [];
-    database.allUsers().then(snapshot => {
-      snapshot.forEach(function(child) {
-        if(child.val().shelterUid === shelter.uid){
-          tempColl.push(child.val())
-        }
-      })
-      this.setState({
-        collaborators: tempColl
-      })
-    })
+    this.updateMembers();
   }
 
   handleChange = name => event => {
@@ -79,7 +78,12 @@ class NewCollaborator extends Component {
         })
       } else {
         this.setState({
-          openAlert: true
+          openAlert: true,
+          errorMessage: {
+            title: "Usuário Não encontrado",
+            msg: "Email ou Nickname não foi encontrado",
+            buttonClose: "Fechar"
+          }
         })
       }
     })
@@ -91,11 +95,54 @@ class NewCollaborator extends Component {
     console.log(this.state.userResult)
     updates['/users/' + this.state.userResult.uid + '/shelterUid'] = shelter.uid;
     updates['/users/' + this.state.userResult.uid + '/hasShelter'] = true;
-    database.updateData(updates).then(obj => {
+    database.updateData(updates).then(() => {
       this.setState({
         open: false
       })
-      console.log(obj)
+      this.updateMembers();
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  handleRemove = (uid, name) => {
+    this.setState({
+      openAlert: true,
+      errorMessage: {
+        title: "Remover Usuario",
+        msg: "Deseja realmente remover o colaborador " + name + "?",
+        buttonClose: "Cancelar",
+        buttonConfirm: "Remover"
+      },
+      removeMemberUid: uid
+    })
+  }
+
+  updateMembers () {
+    var shelter = JSON.parse(localStorage.getItem('shelter'));
+    var tempColl = [];
+    database.allUsers().then(snapshot => {
+      snapshot.forEach(function(child) {
+        if(child.val().shelterUid === shelter.uid){
+          tempColl.push(child.val())
+        }
+      })
+      this.setState({
+        collaborators: tempColl
+      })
+    })
+  }
+
+  removeMember = () => {
+    var updates = {}
+    console.log(this.state.userResult)
+    updates['/users/' + this.state.removeMemberUid + '/shelterUid'] = "none";
+    updates['/users/' + this.state.removeMemberUid + '/hasShelter'] = false;
+    database.updateData(updates).then(obj => {
+      this.setState({
+        openAlert: false
+      })
+      this.updateMembers();
     }).catch(error => {
       console.log(error)
     })
@@ -150,6 +197,7 @@ class NewCollaborator extends Component {
                     </InputAdornment>
                   ),
                 }}
+                helperText="Digite o E-mail ou Nickname do colaborador"
               />
             </GridItem>
           </GridContainer>
@@ -168,17 +216,25 @@ class NewCollaborator extends Component {
                     <img src={value.avatarURL} alt="..." className={imageClasses} />
                   </GridItem>
                   <h4 className={classes.cardTitle}>
-                    {value.name}
+                    {value.name} <i>{"(" + value.nickname + ")"}</i>
                     <br />
                     <small className={classes.smallTitle}>{value.email}</small>
                   </h4>
                   <CardFooter className={classes.justifyCenter}>
-                    <IconButton color="transparent" className={classes.margin5}>
-                      <i className={classes.socials + " fab fa-twitter"} />
-                    </IconButton>
-                    <IconButton color="transparent" className={classes.margin5}>
-                      <i className={classes.socials + " fab fa-linkedin"} />
-                    </IconButton>
+                    {value.uid != value.shelterUid &&
+                      <Tooltip id="tooltip-fab" title="Remover Colaborador">
+                        <IconButton onClick={() => this.handleRemove(value.uid, value.nickname)} color="transparent" className={classes.margin5}>
+                          <RemoveCircle />
+                        </IconButton>
+                      </Tooltip>
+                    }
+                    {value.uid === value.shelterUid &&
+                      <Tooltip id="tooltip-fab" title="Administrador">
+                        <IconButton color="transparent" className={classes.margin5}>
+                          <Admin />
+                        </IconButton>
+                      </Tooltip>
+                    }
                   </CardFooter>
                 </Card>
               </GridItem>
@@ -218,16 +274,21 @@ class NewCollaborator extends Component {
             onClose={this.handleCloseAlert}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle id="form-dialog-title" className={classes.formContainer}>{"Usuário não encontrado"}</DialogTitle>
+            <DialogTitle id="form-dialog-title" className={classes.formContainer}>{this.state.errorMessage.title}</DialogTitle>
             <DialogContent className={classes.formContainer}>
               <DialogContentText>
-                <strong>{"Email ou Nickname não foi encontrado"}</strong>
+                <strong>{this.state.errorMessage.msg}</strong>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleCloseAlert} color="primary">
-                Fechar
+                {this.state.errorMessage.buttonClose}
               </Button>
+              {this.state.errorMessage.buttonConfirm != "" &&
+                <Button onClick={this.removeMember} color="secondary">
+                  {this.state.errorMessage.buttonConfirm}
+                </Button>
+              }
             </DialogActions>
           </Dialog>
         </main>
