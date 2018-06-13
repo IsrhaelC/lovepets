@@ -1,10 +1,6 @@
 import React from "react";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-import { MenuItem } from 'material-ui/Menu';
-import { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import Select from 'material-ui/Select';
+
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -13,12 +9,15 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
+// material-ui components
+import { MenuItem, InputLabel, FormControl, Select } from 'material-ui';
+
+// style
 import searchStyle from "assets/jss/material-kit-react/views/search.jsx";
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
       age: "",
@@ -28,7 +27,6 @@ class Search extends React.Component {
     };
   }
   componentDidMount() {
-    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
       function() {
         this.setState({ cardAnimaton: "" });

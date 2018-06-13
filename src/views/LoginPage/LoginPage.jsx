@@ -1,10 +1,11 @@
 import React from "react";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-import InputAdornment from "material-ui/Input/InputAdornment";
-// @material-ui/icons
+import { auth, database } from '../../firebase';
+
+// material-ui icons
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
+
 // core components
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
@@ -17,10 +18,15 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+
+// material-ui components
+import InputAdornment from "material-ui/Input/InputAdornment";
 import TextField from 'material-ui/TextField';
-import { auth, database } from '../../firebase';
+
+// style
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
+// image
 import image from "assets/img/bg7.jpg";
 
 class LoginPage extends React.Component {

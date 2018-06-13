@@ -1,10 +1,6 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-
-// @material-ui/icons
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -14,10 +10,11 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
-import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
-
-// Sections for this page
+// sections for this page
 import WorkSection from "../LandingPage/Sections/WorkSection.jsx";
+
+// style
+import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 const dashboardRoutes = [];
 

@@ -1,18 +1,16 @@
 import React from "react";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
+import { database } from '../../../firebase';
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
+
+// material-ui components
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import AddBox from '@material-ui/icons/AddBox';
-import Report from '@material-ui/icons/Report';
+import { Avatar, IconButton, Typography } from 'material-ui';
+
+// material-ui core
 import Tooltip from '@material-ui/core/Tooltip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -23,8 +21,14 @@ import Chip from '@material-ui/core/Chip';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { database } from '../../../firebase';
 
+// material-ui icons
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import AddBox from '@material-ui/icons/AddBox';
+import Report from '@material-ui/icons/Report';
+
+// style
 import resultStyle from "assets/jss/material-kit-react/views/resultStyle.jsx";
 
 class Result extends React.Component {

@@ -1,9 +1,8 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-// @material-ui/icons
+
+// material-ui icons
 import Pets from "@material-ui/icons/Pets";
 import Healing from "@material-ui/icons/Healing";
 import Favorite from "@material-ui/icons/Favorite";
@@ -16,8 +15,8 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
+// images
 import profile from "assets/img/adopters/perfil.jpg";
-
 import paciencia1 from "assets/img/adopters/paciencia-1.jpg";
 import paciencia2 from "assets/img/adopters/paciencia-2.jpg";
 import paciencia3 from "assets/img/adopters/paciencia-3.jpg";
@@ -34,6 +33,7 @@ import cuidado3 from "assets/img/adopters/safe-3.jpg";
 import cuidado4 from "assets/img/adopters/safe-4.jpg";
 import cuidado5 from "assets/img/adopters/safe-5.png";
 
+// style
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
 class ProfilePage extends React.Component {

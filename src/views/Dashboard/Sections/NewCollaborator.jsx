@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
-
 import withStyles from "material-ui/styles/withStyles";
 import classNames from "classnames";
+import { database } from '../../../firebase';
 
+// core components
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
-import Card from "components/Card/Card.jsx";
-import TextField from 'material-ui/TextField';
 import CardFooter from "components/Card/CardFooter.jsx";
+import Card from "components/Card/Card.jsx";
 import IconButton from "components/CustomButtons/IconButton.jsx";
-import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { database } from '../../../firebase';
+
+// material-ui Core
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
-import newcollaborator from "assets/jss/material-kit-react/views/newcollaborator.jsx";
+// material-ui components
+import TextField from 'material-ui/TextField';
+
+// material-ui icons
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import Admin from '@material-ui/icons/Lock';
+
+// style
+import newcollaborator from "assets/jss/material-kit-react/views/newcollaborator.jsx";
 
 const dashboardRoutes = [];
 
@@ -221,7 +228,7 @@ class NewCollaborator extends Component {
                     <small className={classes.smallTitle}>{value.email}</small>
                   </h4>
                   <CardFooter className={classes.justifyCenter}>
-                    {value.uid != value.shelterUid &&
+                    {value.uid !== value.shelterUid &&
                       <Tooltip id="tooltip-fab" title="Remover Colaborador">
                         <IconButton onClick={() => this.handleRemove(value.uid, value.nickname)} color="transparent" className={classes.margin5}>
                           <RemoveCircle />
@@ -284,7 +291,7 @@ class NewCollaborator extends Component {
               <Button onClick={this.handleCloseAlert} color="primary">
                 {this.state.errorMessage.buttonClose}
               </Button>
-              {this.state.errorMessage.buttonConfirm != "" &&
+              {this.state.errorMessage.buttonConfirm !== "" &&
                 <Button onClick={this.removeMember} color="secondary">
                   {this.state.errorMessage.buttonConfirm}
                 </Button>

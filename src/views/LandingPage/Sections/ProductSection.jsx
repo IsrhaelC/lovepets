@@ -1,16 +1,17 @@
 import React from "react";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
 
-// @material-ui/icons
+// material-ui icons
 import Pets from "@material-ui/icons/Pets";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Favorite from "@material-ui/icons/Favorite";
+
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import InfoArea from "components/InfoArea/InfoArea.jsx";
 
+// sytle
 import productStyle from "assets/jss/material-kit-react/views/landingPageSections/productStyle.jsx";
 
 class ProductSection extends React.Component {

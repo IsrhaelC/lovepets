@@ -1,10 +1,7 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-
-// @material-ui/icons
+import { database } from '../../firebase';
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -13,13 +10,13 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
-import { database } from '../../firebase';
 
+// sections for this page
 import Search from "./Search/Search.jsx"
 import Result from "./Result/Result.jsx"
 
+// style
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
-
 
 const dashboardRoutes = [];
 

@@ -1,26 +1,23 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-
-// @material-ui/icons
+import { database } from '../../firebase';
 
 // core components
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+
+// material-ui core
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import NotificationImportant from "@material-ui/icons/NotificationsActive"
 import Delete from "@material-ui/icons/Reply";
 import Tooltip from '@material-ui/core/Tooltip';
-import { database } from '../../firebase';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -29,6 +26,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+// material-ui icons
+import NotificationImportant from "@material-ui/icons/NotificationsActive"
+
+// style
 import messages from "assets/jss/material-kit-react/views/messages.jsx";
 
 const dashboardRoutes = [];

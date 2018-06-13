@@ -1,12 +1,6 @@
 import React from "react";
-import { connect } from 'react-redux';
-import compose from 'recompose/compose';
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
-
-// @material-ui/icons
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -16,12 +10,12 @@ import GridItem from "components/Grid/GridItem.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
-import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
-
-// Sections for this page
+// sections for this page
 import ProductSection from "./Sections/ProductSection.jsx";
-//import TeamSection from "./Sections/TeamSection.jsx";
 import WorkSection from "./Sections/WorkSection.jsx";
+
+// style
+import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 const dashboardRoutes = [];
 
@@ -70,12 +64,4 @@ class LandingPage extends React.Component {
   }
 }
 
-const mapStateToProps = store => ({
-  user: store.clickState.user
-});
-
-export default compose(
-  withStyles(landingPageStyle, { name: 'LandingPage' }),
-  connect(mapStateToProps, null)
-)(LandingPage);
-
+export default withStyles(landingPageStyle)(LandingPage);

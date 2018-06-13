@@ -1,10 +1,10 @@
 import React from "react";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
 import classNames from "classnames";
 import firebase from 'firebase';
 import { auth, database } from '../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
+import PlacesAutocomplete   from 'react-places-autocomplete'
 
 // core components
 import Header from "components/Header/Header.jsx";
@@ -18,10 +18,12 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
-import TextField from 'material-ui/TextField';
 import IconButton from "components/CustomButtons/IconButton.jsx";
-import PlacesAutocomplete   from 'react-places-autocomplete'
 
+// material-ui components
+import TextField from 'material-ui/TextField';
+
+// style
 import registerStyle from "assets/jss/material-kit-react/views/registerPage.jsx";
 
 const dashboardRoutes = [];

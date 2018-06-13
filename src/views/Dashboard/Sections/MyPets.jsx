@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-// nodejs library that concatenates classes
 import classNames from "classnames";
 import FileUploader from 'react-firebase-file-uploader';
 import firebase from 'firebase';
 import { database } from '../../../firebase';
-
 import withStyles from "material-ui/styles/withStyles";
 
+// core components
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+
+//Material-ui Core
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -19,21 +21,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { MenuItem } from 'material-ui/Menu';
-import { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import Select from 'material-ui/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
+
+//Material-ui components
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
+import { FormControl, MenuItem, InputLabel, Select, IconButton, Typography, Avatar } from 'material-ui';
+
+//Material-ui icons
+import AddIcon from '@material-ui/icons/Add';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
+//style
 import mypets from "assets/jss/material-kit-react/views/mypets.jsx";
 
 const dashboardRoutes = [];

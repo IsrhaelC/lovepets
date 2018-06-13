@@ -1,7 +1,7 @@
 import React from "react";
-// material-ui components
 import withStyles from "material-ui/styles/withStyles";
 import classNames from "classnames";
+import PlacesAutocomplete from 'react-places-autocomplete'
 import { database } from '../../firebase';
 
 // core components
@@ -15,9 +15,11 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
-import TextField from 'material-ui/TextField';
-import PlacesAutocomplete   from 'react-places-autocomplete'
 
+// material-ui components
+import TextField from 'material-ui/TextField';
+
+// style
 import registerStyle from "assets/jss/material-kit-react/views/registerPage.jsx";
 
 const dashboardRoutes = [];
